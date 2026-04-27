@@ -73,3 +73,46 @@ jobs:
           
           print("✓ All plugin names are unique")
           EOF
+
+      - name: Validate plugin versions match marketplace.json
+        run: |
+          python3 << 'EOF'
+          import json
+          import glob
+          import sys
+
+          with open(".github/plugin/marketplace.json", "r") as f:
+              marketplace = json.load(f)
+
+          marketplace_versions = {
+              p["name"]: p["version"] for p in marketplace.get("plugins", [])
+          }
+
+          errors = []
+          for plugin_file in glob.glob("plugins/**/plugin.json", recursive=True):
+              with open(plugin_file, "r") as f:
+                  plugin = json.load(f)
+
+              name = plugin.get("name")
+              plugin_version = plugin.get("version")
+              marketplace_version = marketplace_versions.get(name)
+
+              if marketplace_version is None:
+                  errors.append(
+                      f"❌ {plugin_file}: plugin '{name}' not found in marketplace.json"
+                  )
+              elif plugin_version != marketplace_version:
+                  errors.append(
+                      f"❌ {plugin_file}: version '{plugin_version}' does not match "
+                      f"marketplace.json version '{marketplace_version}' for plugin '{name}'"
+                  )
+              else:
+                  print(f"✓ {plugin_file}: version '{plugin_version}' matches marketplace.json")
+
+          if errors:
+              for error in errors:
+                  print(error)
+              sys.exit(1)
+
+          print("\n✓ All plugin versions match marketplace.json")
+          EOF
