@@ -119,9 +119,9 @@ Help me fix bug #12345. Let's start with a test-first approach.
 
 ### Install from Marketplace
 
-`bash
-plugin marketplace add IntelliPlugins/IntelliTect-dev
-`
+```bash
+copilot plugin marketplace add IntelliPlugins/IntelliTect-dev
+```
 
 ### Install All Plugins
 

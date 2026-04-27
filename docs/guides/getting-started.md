@@ -4,9 +4,9 @@ Extend GitHub Copilot with enterprise C# development, Coalesce framework, and Vu
 
 ## Install from Marketplace
 
-`bash
-plugin marketplace add IntelliPlugins/IntelliTect-dev
-`
+```bash
+copilot plugin marketplace add IntelliPlugins/IntelliTect-dev
+```
 
 ## Install Your First Plugin
 
