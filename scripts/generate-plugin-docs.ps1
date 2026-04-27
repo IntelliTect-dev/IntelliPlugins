@@ -109,7 +109,7 @@ foreach ($dir in $pluginDirs) {
 
     $keywordsStr   = if ($plugin.keywords)   { $plugin.keywords   -join ", " } else { "" }
     $categoriesStr = if ($plugin.categories) { $plugin.categories -join ", " } else { "" }
-    $installCmd    = "copilot plugin install $($plugin.name)@$($plugin.publisher)"
+    $installCmd    = "copilot plugin install $($plugin.name)@IntelliPlugins"
 
     $lines = [System.Collections.Generic.List[string]]::new()
     $lines.Add("# $($plugin.displayName)")
@@ -150,15 +150,15 @@ Write-Host ""
 Write-Host " Generating installation guide..."
 
 $installRows = ($generated | Sort-Object Name | ForEach-Object {
-    "| $($_.DisplayName) | ``copilot plugin install $($_.Name)@IntelliTect-dev`` |"
+    "| $($_.DisplayName) | ``copilot plugin install $($_.Name)@IntelliPlugins`` |"
 }) -join "`n"
 
 $installAllCmds = ($generated | Sort-Object Name | ForEach-Object {
-    "copilot plugin install $($_.Name)@IntelliTect-dev"
+    "copilot plugin install $($_.Name)@IntelliPlugins"
 }) -join " && \`n"
 
 $configPlugins = ($generated | Sort-Object Name | ForEach-Object {
-    "    `"$($_.Name)@IntelliTect-dev`""
+    "    `"$($_.Name)@IntelliPlugins`""
 }) -join ",`n"
 
 $installGuideLines = [System.Collections.Generic.List[string]]::new()
@@ -174,6 +174,12 @@ $installGuideLines.Add("")
 $installGuideLines.Add("| Plugin | Install Command |")
 $installGuideLines.Add("|--------|-----------------|")
 $installGuideLines.Add($installRows)
+$installGuideLines.Add("")
+$installGuideLines.Add("## Install from Marketplace")
+$installGuideLines.Add("")
+$installGuideLines.Add('```bash')
+$installGuideLines.Add("plugin marketplace add IntelliPlugins/IntelliTect-dev")
+$installGuideLines.Add('```')
 $installGuideLines.Add("")
 $installGuideLines.Add("## Install All Plugins")
 $installGuideLines.Add("")

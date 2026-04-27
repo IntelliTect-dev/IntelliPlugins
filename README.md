@@ -10,7 +10,7 @@ Curated GitHub Copilot plugins for enterprise C# development, Coalesce framework
 ### Install a Plugin
 
 ```bash
-copilot plugin install solid-principles@IntelliTect-dev
+copilot plugin install solid-principles@IntelliPlugins
 ```
 
 ### Use in Copilot
@@ -117,15 +117,21 @@ Help me fix bug #12345. Let's start with a test-first approach.
 - GitHub Copilot CLI ([installation guide](https://docs.github.com/en/copilot/how-tos/copilot-cli/getting-started-with-github-copilot-cli))
 - Git
 
+### Install from Marketplace
+
+`bash
+plugin marketplace add IntelliPlugins/IntelliTect-dev
+`
+
 ### Install All Plugins
 
 ```bash
-copilot plugin install solid-principles@IntelliTect-dev && \
-copilot plugin install testing-essentials@IntelliTect-dev && \
-copilot plugin install csharp-best-practices@IntelliTect-dev && \
-copilot plugin install coalesce-accelerator@IntelliTect-dev && \
-copilot plugin install vuetify-components@IntelliTect-dev && \
-copilot plugin install enterprise-bug-fixing@IntelliTect-dev
+copilot plugin install solid-principles@IntelliPlugins && \
+copilot plugin install testing-essentials@IntelliPlugins && \
+copilot plugin install csharp-best-practices@IntelliPlugins && \
+copilot plugin install coalesce-accelerator@IntelliPlugins && \
+copilot plugin install vuetify-components@IntelliPlugins && \
+copilot plugin install enterprise-bug-fixing@IntelliPlugins
 ```
 
 ### Project-Level Setup
@@ -135,9 +141,9 @@ Create `.copilot/config.json` in your project:
 ```json
 {
   "plugins": [
-    "solid-principles@IntelliTect-dev",
-    "testing-essentials@IntelliTect-dev",
-    "csharp-best-practices@IntelliTect-dev"
+    "solid-principles@IntelliPlugins",
+    "testing-essentials@IntelliPlugins",
+    "csharp-best-practices@IntelliPlugins"
   ]
 }
 ```

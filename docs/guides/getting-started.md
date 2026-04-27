@@ -2,10 +2,16 @@
 
 Extend GitHub Copilot with enterprise C# development, Coalesce framework, and Vue 3 with Vuetify expertise.
 
+## Install from Marketplace
+
+`bash
+plugin marketplace add IntelliPlugins/IntelliTect-dev
+`
+
 ## Install Your First Plugin
 
 ```bash
-copilot plugin install solid-principles@IntelliTect-dev
+copilot plugin install solid-principles@IntelliPlugins
 ```
 
 ## Use It in Copilot
@@ -45,10 +51,10 @@ Create `.copilot/config.json` in your project:
 ```json
 {
   "plugins": [
-    "solid-principles@IntelliTect-dev",
-    "testing-essentials@IntelliTect-dev",
-    "csharp-best-practices@IntelliTect-dev",
-    "coalesce-accelerator@IntelliTect-dev"
+    "solid-principles@IntelliPlugins",
+    "testing-essentials@IntelliPlugins",
+    "csharp-best-practices@IntelliPlugins",
+    "coalesce-accelerator@IntelliPlugins"
   ]
 }
 ```
