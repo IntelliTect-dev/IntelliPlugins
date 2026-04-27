@@ -182,7 +182,7 @@ List<User> GetActiveUsersList()
 
 ## Contributing
 
-This plugin is part of the IntelliPlugins ecosystem. For contributions, feature requests, or bug reports, visit the [IntelliPlugins repository](https://github.com/IntelliTect-dev/IntelliPlugins).
+This plugin is part of the IntelliPlugins ecosystem. For contributions, feature requests, or bug reports, visit the [IntelliPlugins repository](https://github.com/IntelliTect/IntelliPlugins).
 
 ## License
 
@@ -191,5 +191,5 @@ MIT License - See LICENSE file for details
 ---
 
 **Version:** 1.0.0  
-**Publisher:** IntelliTect-dev  
+**Publisher:** IntelliTect  
 **Last Updated:** 2024

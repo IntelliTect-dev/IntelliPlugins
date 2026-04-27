@@ -486,8 +486,8 @@ MIT License. See LICENSE file in the repository.
 ## Support
 
 For issues, questions, or contributions:
-- GitHub: [IntelliPlugins](https://github.com/IntelliTect-dev/IntelliPlugins)
-- Issues: [GitHub Issues](https://github.com/IntelliTect-dev/IntelliPlugins/issues)
+- GitHub: [IntelliPlugins](https://github.com/IntelliTect/IntelliPlugins)
+- Issues: [GitHub Issues](https://github.com/IntelliTect/IntelliPlugins/issues)
 
 ---
 

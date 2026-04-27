@@ -3,12 +3,12 @@
   "displayName": "Enterprise Bug Fixing Workflow",
   "description": "Structured bug resolution workflow with test-first approach, Azure DevOps integration, and comprehensive validation.",
   "version": "1.0.0",
-  "publisher": "IntelliTect-dev",
+  "publisher": "IntelliTect",
   "license": "MIT",
-  "homepage": "https://intellitect-dev.github.io/IntelliPlugins/plugins/enterprise-bug-fixing",
+  "homepage": "https://intellitect.github.io/IntelliPlugins/plugins/enterprise-bug-fixing",
   "repository": {
     "type": "git",
-    "url": "https://github.com/IntelliTect-dev/IntelliPlugins.git",
+    "url": "https://github.com/IntelliTect/IntelliPlugins.git",
     "directory": "plugins/enterprise-bug-fixing"
   },
   "keywords": [

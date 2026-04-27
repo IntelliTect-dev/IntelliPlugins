@@ -3,12 +3,12 @@
   "displayName": "Testing Essentials",
   "description": "Comprehensive testing best practices including unit testing strategies, test naming conventions, and mock frameworks.",
   "version": "1.0.0",
-  "publisher": "IntelliTect-dev",
+  "publisher": "IntelliTect",
   "license": "MIT",
-  "homepage": "https://intellitect-dev.github.io/IntelliPlugins/plugins/testing-essentials",
+  "homepage": "https://intellitect.github.io/IntelliPlugins/plugins/testing-essentials",
   "repository": {
     "type": "git",
-    "url": "https://github.com/IntelliTect-dev/IntelliPlugins.git",
+    "url": "https://github.com/IntelliTect/IntelliPlugins.git",
     "directory": "plugins/testing-essentials"
   },
   "keywords": [

@@ -146,9 +146,9 @@ This plugin includes three comprehensive instruction files:
 
 ## Related Plugins
 
-- **[C# Best Practices](https://intellitect-dev.github.io/IntelliPlugins//plugins/csharp-best-practices)** — SOLID principles and architectural patterns for .NET
-- **[Vuetify Components](https://intellitect-dev.github.io/IntelliPlugins//plugins/vuetify-components)** — Material Design UI component library for Vue 3
-- **[Testing Essentials](https://intellitect-dev.github.io/IntelliPlugins//plugins/testing-essentials)** — Unit, integration, and E2E testing strategies
+- **[C# Best Practices](https://intellitect.github.io/IntelliPlugins//plugins/csharp-best-practices)** — SOLID principles and architectural patterns for .NET
+- **[Vuetify Components](https://intellitect.github.io/IntelliPlugins//plugins/vuetify-components)** — Material Design UI component library for Vue 3
+- **[Testing Essentials](https://intellitect.github.io/IntelliPlugins//plugins/testing-essentials)** — Unit, integration, and E2E testing strategies
 
 ## Architecture Highlights
 
@@ -231,7 +231,7 @@ const model = ref<Person>(new Person());
 
 For issues, questions, or suggestions:
 
-- Open an issue on [GitHub](https://github.com/IntelliTect-dev/IntelliPlugins/issues)
+- Open an issue on [GitHub](https://github.com/IntelliTect/IntelliPlugins/issues)
 - Reference this plugin: `coalesce-accelerator`
 - Include your Coalesce version and .NET version
 

@@ -269,4 +269,4 @@ MIT License - See LICENSE file for details
 
 ---
 
-**IntelliTect-dev** - Enterprise Software Solutions
+**IntelliTect** - Enterprise Software Solutions

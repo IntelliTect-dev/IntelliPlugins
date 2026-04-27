@@ -3,12 +3,12 @@
   "displayName": "Coalesce Accelerator",
   "description": "Streamline full-stack Coalesce framework development with code generation, data binding, and EF Core migration workflows.",
   "version": "1.0.0",
-  "publisher": "IntelliTect-dev",
+  "publisher": "IntelliTect",
   "license": "MIT",
-  "homepage": "https://intellitect-dev.github.io/IntelliPlugins/plugins/coalesce-accelerator",
+  "homepage": "https://intellitect.github.io/IntelliPlugins/plugins/coalesce-accelerator",
   "repository": {
     "type": "git",
-    "url": "https://github.com/IntelliTect-dev/IntelliPlugins.git",
+    "url": "https://github.com/IntelliTect/IntelliPlugins.git",
     "directory": "plugins/coalesce-accelerator"
   },
   "keywords": [
