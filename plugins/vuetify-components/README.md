@@ -321,8 +321,8 @@ WCAG compliance, semantic HTML, ARIA attributes, keyboard navigation, and inclus
 
 ## Related Plugins
 
-- **[SOLID Principles & Architecture](https://upgraded-dollop-mvkkwvo.pages.github.io/plugins/solid-principles)** — Enterprise code quality and design patterns to structure your Vue applications professionally
-- **[Coalesce Accelerator](https://upgraded-dollop-mvkkwvo.pages.github.io/plugins/coalesce-accelerator)** — Full-stack data access patterns that complement your Vue UI
+- **[SOLID Principles & Architecture](https://intellitect-dev.github.io/IntelliPlugins/plugins/solid-principles)** — Enterprise code quality and design patterns to structure your Vue applications professionally
+- **[Coalesce Accelerator](https://intellitect-dev.github.io/IntelliPlugins/plugins/coalesce-accelerator)** — Full-stack data access patterns that complement your Vue UI
 
 ## Vuetify Documentation
 
