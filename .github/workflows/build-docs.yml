@@ -11,6 +11,7 @@ on:
       - '.github/workflows/build-docs.yml'
 
 permissions:
+  contents: read
   actions: read
   pages: write
   id-token: write
