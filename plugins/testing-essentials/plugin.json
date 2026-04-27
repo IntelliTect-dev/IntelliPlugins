@@ -20,6 +20,7 @@
     "mocking"
   ],
   "categories": ["Enterprise", "Testing"],
+  "skills": "skills/",
   "contents": {
     "instructions": [
       "instructions/testing-best-practices.md",

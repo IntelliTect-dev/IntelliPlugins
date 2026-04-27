@@ -1,0 +1,32 @@
+{
+  "mcpServers": {
+    "ado_with_filtered_domains": {
+      "description": "Azure DevOps MCP server for querying work items, boards, and pipelines. Required for work item retrieval in the bug-fix workflow.",
+      "notes": "Install from: https://github.com/microsoft/azure-devops-mcp — configure ADO_ORGANIZATION and ADO_PAT environment variables before use.",
+      "command": "npx",
+      "args": ["-y", "@microsoft/azure-devops-mcp"],
+      "env": {
+        "ADO_ORGANIZATION": "${ADO_ORGANIZATION}",
+        "ADO_PAT": "${ADO_PAT}"
+      }
+    },
+    "context7": {
+      "description": "Context7 MCP server for accessing up-to-date library documentation (Coalesce, ASP.NET Core, EF Core). Used by the bug-fix agent to look up API references.",
+      "notes": "Install from: https://github.com/upstash/context7-mcp",
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    },
+    "nuget": {
+      "description": "NuGet MCP server for querying package versions and vulnerability information during bug analysis.",
+      "notes": "Install from: https://github.com/github/github-mcp-server or equivalent NuGet MCP integration.",
+      "command": "npx",
+      "args": ["-y", "@microsoft/nuget-mcp"]
+    },
+    "playwright": {
+      "description": "Playwright MCP server for browser-based testing and end-to-end validation during bug fixing.",
+      "notes": "Install from: https://github.com/microsoft/playwright-mcp — requires Node.js and Playwright browsers.",
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    }
+  }
+}

@@ -22,6 +22,7 @@
     "TypeScript"
   ],
   "categories": ["Framework", "FullStack"],
+  "skills": "skills/",
   "contents": {
     "instructions": [
       "instructions/coalesce-workflows.md",

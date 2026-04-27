@@ -22,6 +22,9 @@
     "validation"
   ],
   "categories": ["Specialized", "Workflow"],
+  "agents": "agents/",
+  "skills": "skills/",
+  "mcpServers": ".mcp.json",
   "contents": {
     "agents": ["agents/BugFixerAgent.agent.md"],
     "instructions": ["instructions/bug-fixing-workflow.md"]

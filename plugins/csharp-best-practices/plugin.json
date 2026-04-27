@@ -23,6 +23,7 @@
     "dotnet"
   ],
   "categories": ["Language", "Enterprise"],
+  "skills": "skills/",
   "contents": {
     "instructions": [
       "instructions/csharp-patterns.md",

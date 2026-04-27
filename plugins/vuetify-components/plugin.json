@@ -23,6 +23,7 @@
     "composition-api"
   ],
   "categories": ["Framework", "Frontend", "UI/UX", "Accessibility"],
+  "skills": "skills/",
   "contents": {
     "instructions": [
       "instructions/vuetify-components.md",
