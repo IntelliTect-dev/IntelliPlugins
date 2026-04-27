@@ -146,9 +146,9 @@ This plugin includes three comprehensive instruction files:
 
 ## Related Plugins
 
-- **[C# Best Practices](https://upgraded-dollop-mvkkwvo.pages.github.io//plugins/csharp-best-practices)** — SOLID principles and architectural patterns for .NET
-- **[Vuetify Components](https://upgraded-dollop-mvkkwvo.pages.github.io//plugins/vuetify-components)** — Material Design UI component library for Vue 3
-- **[Testing Essentials](https://upgraded-dollop-mvkkwvo.pages.github.io//plugins/testing-essentials)** — Unit, integration, and E2E testing strategies
+- **[C# Best Practices](https://intellitect-dev.github.io/IntelliPlugins//plugins/csharp-best-practices)** — SOLID principles and architectural patterns for .NET
+- **[Vuetify Components](https://intellitect-dev.github.io/IntelliPlugins//plugins/vuetify-components)** — Material Design UI component library for Vue 3
+- **[Testing Essentials](https://intellitect-dev.github.io/IntelliPlugins//plugins/testing-essentials)** — Unit, integration, and E2E testing strategies
 
 ## Architecture Highlights
 
