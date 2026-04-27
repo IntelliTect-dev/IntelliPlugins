@@ -30,31 +30,36 @@ copilot plugin install coalesce-accelerator@IntelliPlugins
 
 ## Key Features
 
-###  Full-Stack Development Patterns
+### Full-Stack Development Patterns
+
 - Coalesce project structure and conventions
 - Model design for API generation
 - Navigation properties and relationships
 - DTOs and projection strategies
 
-###  Code Generation Workflows
+### Code Generation Workflows
+
 - Automated REST API creation from C# models
 - TypeScript type definitions synchronized with C# models
 - Generated validation rules and constraints
 - Regeneration after schema changes
 
-###  Entity Framework Core Patterns
+### Entity Framework Core Patterns
+
 - Model-first development with Coalesce
 - One-to-many, many-to-many, and self-referential relationships
 - Lazy loading, eager loading, and explicit loading strategies
 - Database migrations with `dotnet ef`
 
-###  Vue 3 Data Binding
+### Vue 3 Data Binding
+
 - Integration with Coalesce-generated TypeScript types
 - Reactive form binding with Vuetify components
 - List management and filtering
 - Real-time updates with SignalR
 
-###  Production-Ready Workflows
+### Production-Ready Workflows
+
 - Complex filtering and search
 - Pagination and performance optimization
 - Role-based access control and authorization
@@ -98,12 +103,14 @@ copilot plugin install coalesce-accelerator@IntelliPlugins
 ## Documentation Links
 
 ### Official Resources
+
 - **[Coalesce Documentation](https://coalesce.intellitect.com/)** — Official guides, API docs, examples
 - **[Coalesce GitHub](https://github.com/IntelliTect/Coalesce)** — Source code and issue tracking
 - **[Vue 3 Documentation](https://vuejs.org/)** — Vue 3 fundamentals
 - **[Vuetify Documentation](https://vuetifyjs.com/)** — Vue 3 component library
 
 ### Entity Framework Core
+
 - **[EF Core Documentation](https://learn.microsoft.com/en-us/ef/core/)** — Model design, migrations, queries
 - **[EF Core Relationships](https://learn.microsoft.com/en-us/ef/core/modeling/relationships/)** — Relationship patterns
 
@@ -112,6 +119,7 @@ copilot plugin install coalesce-accelerator@IntelliPlugins
 This plugin includes three comprehensive instruction files:
 
 ### 1. **Coalesce Workflows** (`coalesce-workflows.md`)
+
 - Project setup and initialization
 - Model and DbContext creation
 - Code generation process and troubleshooting
@@ -119,6 +127,7 @@ This plugin includes three comprehensive instruction files:
 - Best practices for model design
 
 ### 2. **EF Core Patterns** (`ef-core-patterns.md`)
+
 - Model design for Coalesce
 - Relationships (one-to-many, many-to-many, self-referential)
 - Data annotations and configurations
@@ -127,6 +136,7 @@ This plugin includes three comprehensive instruction files:
 - Migrations and schema management
 
 ### 3. **Code Generation** (`code-generation.md`)
+
 - What Coalesce generates (APIs, TypeScript, validation)
 - Running `coalesce_generate` and understanding output
 - Generated file structure and organization
@@ -136,15 +146,16 @@ This plugin includes three comprehensive instruction files:
 
 ## Related Plugins
 
-- **[C# Best Practices](https://intelliplugins.github.io/plugins/csharp-best-practices)** — SOLID principles and architectural patterns for .NET
-- **[Vuetify Components](https://intelliplugins.github.io/plugins/vuetify-components)** — Material Design UI component library for Vue 3
-- **[Testing Essentials](https://intelliplugins.github.io/plugins/testing-essentials)** — Unit, integration, and E2E testing strategies
+- **[C# Best Practices](https://upgraded-dollop-mvkkwvo.pages.github.io//plugins/csharp-best-practices)** — SOLID principles and architectural patterns for .NET
+- **[Vuetify Components](https://upgraded-dollop-mvkkwvo.pages.github.io//plugins/vuetify-components)** — Material Design UI component library for Vue 3
+- **[Testing Essentials](https://upgraded-dollop-mvkkwvo.pages.github.io//plugins/testing-essentials)** — Unit, integration, and E2E testing strategies
 
 ## Architecture Highlights
 
 ### What Coalesce Generates
 
 For a model like:
+
 ```csharp
 public class Person
 {
@@ -157,6 +168,7 @@ public class Person
 ```
 
 Coalesce automatically generates:
+
 - **REST API** — CRUD endpoints with filtering, sorting, pagination
 - **TypeScript DTO** — Type-safe model for Vue consumption
 - **API Client** — Generated service for making API calls
@@ -182,21 +194,25 @@ const model = ref<Person>(new Person());
 ## Enterprise Patterns
 
 ### Pagination and Performance
+
 - Use Coalesce's built-in paging to reduce payload sizes
 - Configure eager loading strategically to minimize N+1 queries
 - Index frequently-filtered columns in the database
 
 ### Role-Based Access Control
+
 - Use Coalesce `[Restrict]` attributes for property-level authorization
 - Implement service methods for complex authorization logic
 - Validate permissions on the server side (never on the client)
 
 ### Real-Time Updates
+
 - Leverage SignalR for live notifications
 - Combine with Coalesce services for efficient data synchronization
 - Use client-side caching to minimize round trips
 
 ### Error Handling
+
 - Standardize API responses with Coalesce validation
 - Use consistent HTTP status codes
 - Provide meaningful error messages to the client
@@ -204,6 +220,7 @@ const model = ref<Person>(new Person());
 ## Version History
 
 ### v1.0.0 (2025)
+
 - Initial release
 - Full-stack Coalesce development workflows
 - EF Core patterns and best practices
@@ -213,6 +230,7 @@ const model = ref<Person>(new Person());
 ## Support and Feedback
 
 For issues, questions, or suggestions:
+
 - Open an issue on [GitHub](https://github.com/IntelliTect-dev/IntelliPlugins/issues)
 - Reference this plugin: `coalesce-accelerator`
 - Include your Coalesce version and .NET version

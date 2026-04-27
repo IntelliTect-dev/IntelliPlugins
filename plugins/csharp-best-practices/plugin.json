@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "publisher": "IntelliTect-dev",
   "license": "MIT",
-  "homepage": "https://intelliplugins.github.io/plugins/csharp-best-practices",
+  "homepage": "https://upgraded-dollop-mvkkwvo.pages.github.io/plugins/csharp-best-practices",
   "repository": {
     "type": "git",
     "url": "https://github.com/IntelliTect-dev/IntelliPlugins.git",
@@ -22,10 +22,7 @@
     "enterprise",
     "dotnet"
   ],
-  "categories": [
-    "Language",
-    "Enterprise"
-  ],
+  "categories": ["Language", "Enterprise"],
   "contents": {
     "instructions": [
       "instructions/csharp-patterns.md",

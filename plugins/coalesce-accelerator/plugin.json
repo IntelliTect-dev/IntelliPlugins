@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "publisher": "IntelliTect-dev",
   "license": "MIT",
-  "homepage": "https://intelliplugins.github.io/plugins/coalesce-accelerator",
+  "homepage": "https://upgraded-dollop-mvkkwvo.pages.github.io/plugins/coalesce-accelerator",
   "repository": {
     "type": "git",
     "url": "https://github.com/IntelliTect-dev/IntelliPlugins.git",
@@ -21,10 +21,7 @@
     "Vuetify",
     "TypeScript"
   ],
-  "categories": [
-    "Framework",
-    "FullStack"
-  ],
+  "categories": ["Framework", "FullStack"],
   "contents": {
     "instructions": [
       "instructions/coalesce-workflows.md",

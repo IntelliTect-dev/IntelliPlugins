@@ -21,7 +21,7 @@ copilot plugin install solid-principles@IntelliPlugins
 
 ### Browse All Plugins
 
-Visit [intelliplugins.github.io](https://intelliplugins.github.io) for documentation, examples, and installation guides.
+Visit [help pages](https://upgraded-dollop-mvkkwvo.pages.github.io/) for documentation, examples, and installation guides.
 
 ## Available Plugins
 
@@ -45,7 +45,7 @@ Visit [intelliplugins.github.io](https://intelliplugins.github.io) for documenta
 - **[Getting Started](docs/guides/getting-started.md)** - Your first steps with IntelliPlugins
 - **[Usage Examples](docs/guides/usage-examples.md)** - Real-world scenarios
 - **[Installation Guide](docs/plugins/installation-guide.md)** - Detailed setup
-- **[Full Documentation](https://intelliplugins.github.io)** - Complete guides and examples
+- **[Full Documentation](https://upgraded-dollop-mvkkwvo.pages.github.io/)** - Complete guides and examples
 
 ## Repository Structure
 

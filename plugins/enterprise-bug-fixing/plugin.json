@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "publisher": "IntelliTect-dev",
   "license": "MIT",
-  "homepage": "https://intelliplugins.github.io/plugins/enterprise-bug-fixing",
+  "homepage": "https://upgraded-dollop-mvkkwvo.pages.github.io/plugins/enterprise-bug-fixing",
   "repository": {
     "type": "git",
     "url": "https://github.com/IntelliTect-dev/IntelliPlugins.git",
@@ -21,16 +21,9 @@
     "root-cause-analysis",
     "validation"
   ],
-  "categories": [
-    "Specialized",
-    "Workflow"
-  ],
+  "categories": ["Specialized", "Workflow"],
   "contents": {
-    "agents": [
-      "agents/BugFixerAgent.agent.md"
-    ],
-    "instructions": [
-      "instructions/bug-fixing-workflow.md"
-    ]
+    "agents": ["agents/BugFixerAgent.agent.md"],
+    "instructions": ["instructions/bug-fixing-workflow.md"]
   }
 }

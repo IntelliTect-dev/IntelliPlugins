@@ -9,6 +9,7 @@ This plugin provides comprehensive guidance on leveraging Vuetify 3 and Vue 3's 
 ## What This Plugin Covers
 
 ### Vue 3 & Composition API
+
 - Modern reactive patterns using `ref()`, `reactive()`, and `computed()`
 - Watch and watchers for side effects
 - Custom composables for code reuse
@@ -16,6 +17,7 @@ This plugin provides comprehensive guidance on leveraging Vuetify 3 and Vue 3's 
 - Performance optimization techniques
 
 ### Vuetify Component Library
+
 - **Layout Components**: VContainer, VRow, VCol, VSheet, VNavigationDrawer, VAppBar
 - **Data Display**: VDataTable, VList, VCard, VChip
 - **Form Components**: VTextField, VSelect, VCheckbox, VRadio, VSwitch, VDatePicker
@@ -24,6 +26,7 @@ This plugin provides comprehensive guidance on leveraging Vuetify 3 and Vue 3's 
 - **Theming & Customization**: Light/dark modes, color palettes, custom themes
 
 ### Professional Component Development
+
 - Component composition and nesting
 - Prop design and slot patterns
 - State management with `v-model`
@@ -32,6 +35,7 @@ This plugin provides comprehensive guidance on leveraging Vuetify 3 and Vue 3's 
 - Responsive breakpoint strategies
 
 ### Accessibility & UX
+
 - Web Accessibility (WCAG) standards
 - Semantic HTML structure
 - ARIA attributes and roles
@@ -82,14 +86,14 @@ copilot plugin install vuetify-components@IntelliPlugins
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue";
 
-const email = ref('')
-const validationErrors = ref<string[]>([])
+const email = ref("");
+const validationErrors = ref<string[]>([]);
 
-const required = (value: string) => !!value || 'Email is required'
-const validEmail = (value: string) => 
-  !value || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) || 'Email must be valid'
+const required = (value: string) => !!value || "Email is required";
+const validEmail = (value: string) =>
+  !value || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) || "Email must be valid";
 </script>
 ```
 
@@ -127,31 +131,31 @@ const validEmail = (value: string) =>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue";
 
 interface User {
-  id: number
-  name: string
-  email: string
+  id: number;
+  name: string;
+  email: string;
 }
 
-const users = ref<User[]>([])
-const search = ref('')
-const isLoading = ref(false)
+const users = ref<User[]>([]);
+const search = ref("");
+const isLoading = ref(false);
 
 const headers = [
-  { title: 'Name', value: 'name' },
-  { title: 'Email', value: 'email' },
-  { title: 'Actions', value: 'actions', sortable: false },
-]
+  { title: "Name", value: "name" },
+  { title: "Email", value: "email" },
+  { title: "Actions", value: "actions", sortable: false },
+];
 
 const editUser = (user: User) => {
   // Handle edit
-}
+};
 
 const deleteUser = (user: User) => {
   // Handle delete
-}
+};
 </script>
 ```
 
@@ -166,7 +170,7 @@ const deleteUser = (user: User) => {
 
     <VCard>
       <VCardTitle>Create New Item</VCardTitle>
-      
+
       <VCardText>
         <VForm ref="form" @submit.prevent="submit">
           <VTextField
@@ -194,33 +198,33 @@ const deleteUser = (user: User) => {
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue";
 
 interface FormData {
-  title: string
-  description: string
+  title: string;
+  description: string;
 }
 
-const isOpen = ref(false)
-const form = ref<any>()
-const formData = ref<FormData>({ title: '', description: '' })
+const isOpen = ref(false);
+const form = ref<any>();
+const formData = ref<FormData>({ title: "", description: "" });
 
-const required = (value: string) => !!value || 'This field is required'
+const required = (value: string) => !!value || "This field is required";
 
 const submit = async () => {
-  const { valid } = await form.value?.validate()
-  if (!valid) return
+  const { valid } = await form.value?.validate();
+  if (!valid) return;
 
   try {
     // Submit to API
-    console.log('Submitting:', formData.value)
-    isOpen.value = false
+    console.log("Submitting:", formData.value);
+    isOpen.value = false;
     // Reset form
-    formData.value = { title: '', description: '' }
+    formData.value = { title: "", description: "" };
   } catch (error) {
-    console.error('Submission failed:', error)
+    console.error("Submission failed:", error);
   }
-}
+};
 </script>
 ```
 
@@ -236,11 +240,7 @@ const submit = async () => {
 
     <VNavigationDrawer v-model="drawer" rail>
       <VNavigation>
-        <VListItem
-          v-for="item in menuItems"
-          :key="item.title"
-          :to="item.path"
-        >
+        <VListItem v-for="item in menuItems" :key="item.title" :to="item.path">
           <template #prepend>
             <VIcon :icon="item.icon" />
           </template>
@@ -256,49 +256,49 @@ const submit = async () => {
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue";
 
-const drawer = ref(false)
+const drawer = ref(false);
 
 const menuItems = [
-  { title: 'Dashboard', path: '/', icon: 'mdi-home' },
-  { title: 'Users', path: '/users', icon: 'mdi-account-multiple' },
-  { title: 'Settings', path: '/settings', icon: 'mdi-cog' },
-]
+  { title: "Dashboard", path: "/", icon: "mdi-home" },
+  { title: "Users", path: "/users", icon: "mdi-account-multiple" },
+  { title: "Settings", path: "/settings", icon: "mdi-cog" },
+];
 </script>
 ```
 
 #### Composable for API Calls
 
 ```typescript
-import { ref, readonly } from 'vue'
+import { ref, readonly } from "vue";
 
 export const useFetch = (url: string) => {
-  const data = ref<any>(null)
-  const isLoading = ref(false)
-  const error = ref<Error | null>(null)
+  const data = ref<any>(null);
+  const isLoading = ref(false);
+  const error = ref<Error | null>(null);
 
   const fetch = async () => {
-    isLoading.value = true
-    error.value = null
+    isLoading.value = true;
+    error.value = null;
     try {
-      const response = await window.fetch(url)
-      if (!response.ok) throw new Error(`HTTP ${response.status}`)
-      data.value = await response.json()
+      const response = await window.fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      data.value = await response.json();
     } catch (err) {
-      error.value = err instanceof Error ? err : new Error(String(err))
+      error.value = err instanceof Error ? err : new Error(String(err));
     } finally {
-      isLoading.value = false
+      isLoading.value = false;
     }
-  }
+  };
 
   return {
     data: readonly(data),
     isLoading: readonly(isLoading),
     error: readonly(error),
     fetch,
-  }
-}
+  };
+};
 
 // Usage in component:
 // const { data: users, isLoading, error, fetch } = useFetch('/api/users')
@@ -308,18 +308,21 @@ export const useFetch = (url: string) => {
 ## Key Documentation Files
 
 ### [Vuetify Components & Patterns](instructions/vuetify-components.md)
+
 Detailed reference for all major Vuetify components, layout systems, theming, and composition strategies. This is your go-to guide for component-specific patterns and best practices.
 
 ### [Vue 3 Composition API](instructions/vue3-composition.md)
+
 Modern Vue 3 reactive patterns, composables, lifecycle hooks, and performance optimization. Master the Composition API for cleaner, more reusable component code.
 
 ### [Accessibility & UX Best Practices](instructions/accessibility-ux.md)
+
 WCAG compliance, semantic HTML, ARIA attributes, keyboard navigation, and inclusive design. Build UIs that work for everyone.
 
 ## Related Plugins
 
-- **[SOLID Principles & Architecture](https://intelliplugins.github.io/plugins/solid-principles)** — Enterprise code quality and design patterns to structure your Vue applications professionally
-- **[Coalesce Accelerator](https://intelliplugins.github.io/plugins/coalesce-accelerator)** — Full-stack data access patterns that complement your Vue UI
+- **[SOLID Principles & Architecture](https://upgraded-dollop-mvkkwvo.pages.github.io/plugins/solid-principles)** — Enterprise code quality and design patterns to structure your Vue applications professionally
+- **[Coalesce Accelerator](https://upgraded-dollop-mvkkwvo.pages.github.io/plugins/coalesce-accelerator)** — Full-stack data access patterns that complement your Vue UI
 
 ## Vuetify Documentation
 
@@ -332,32 +335,38 @@ For the authoritative Vuetify reference:
 ## Component Categories
 
 ### Layout & Structure
+
 - VApp, VAppBar, VNavigationDrawer, VContainer, VRow, VCol
 - VSheet, VMain, VFooter
 - Grid system and responsive breakpoints
 
 ### Data Display
+
 - VDataTable, VDataTableVirtual (large datasets)
 - VList, VListItem, VListGroup
 - VCard, VCardText, VCardActions
 - VChip, VAvatar, VProgressLinear
 
 ### User Input
+
 - VTextField, VTextarea, VSelect, VAutocomplete
 - VCheckbox, VSwitch, VRadio, VRadioGroup
 - VSlider, VRangeSlider, VCombobox
 - VDatePicker, VTimePicker, VColorPicker
 
 ### Dialogs & Overlays
+
 - VDialog, VMenu, VBottomSheet
 - VTooltip, VPopover
 - VSnackbar for notifications
 
 ### Navigation
+
 - VTabs, VBreadcrumbs, VPagination
 - VPaginationGroup
 
 ### Feedback
+
 - VAlert, VBanner
 - VProgressLinear, VProgressCircular
 - VSkeletonLoader
