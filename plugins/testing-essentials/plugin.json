@@ -19,11 +19,9 @@
     "xUnit",
     "mocking"
   ],
-  "categories": ["Enterprise", "Testing"],
-  "contents": {
-    "instructions": [
-      "instructions/testing-best-practices.md",
-      "instructions/unit-testing-patterns.md"
-    ]
-  }
+  "categories": [
+    "Enterprise",
+    "Testing"
+  ],
+  "skills": "skills/"
 }

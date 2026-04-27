@@ -1,3 +1,20 @@
+---
+name: apply-testing-patterns
+description: Apply enterprise unit testing patterns including test doubles, data-driven tests, and test organization
+---
+
+# Apply Testing Patterns Skill
+
+Apply advanced unit testing patterns including test doubles (mocks, stubs, fakes), data-driven tests, test organization strategies, and enterprise testing conventions.
+
+## When to Use
+
+Invoke this skill when you:
+- Need to implement complex test scenarios with multiple test doubles
+- Want to apply data-driven or theory-based test patterns
+- Are organizing a test suite and need structural guidance
+- Need to test edge cases with parameterized test data
+
 # Unit Testing Patterns
 
 Advanced patterns and strategies for comprehensive test coverage in enterprise C# applications.

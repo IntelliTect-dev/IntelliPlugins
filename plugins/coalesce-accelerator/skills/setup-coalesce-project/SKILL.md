@@ -1,3 +1,20 @@
+---
+name: setup-coalesce-project
+description: Set up a new Coalesce full-stack project from scratch including models, DbContext, and project structure
+---
+
+# Setup Coalesce Project Skill
+
+Guide the full setup of a new Coalesce full-stack project including C# models, EF Core DbContext, Coalesce configuration, and Vue 3 frontend scaffolding.
+
+## When to Use
+
+Invoke this skill when you:
+- Are starting a brand new Coalesce project from scratch
+- Need to configure an existing project to use Coalesce
+- Want to understand the required project structure and dependencies
+- Are setting up the full development workflow for a Coalesce application
+
 # Coalesce Workflows
 
 This guide covers the end-to-end workflows for developing with Coalesce, from project setup through code generation to full-stack deployment.

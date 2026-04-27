@@ -1,3 +1,20 @@
+---
+name: use-composition-api
+description: Build Vue 3 components using the Composition API with TypeScript and Vuetify
+---
+
+# Use Composition API Skill
+
+Build Vue 3 single-file components using the Composition API with TypeScript, covering reactive state, composables, lifecycle hooks, and performance optimization.
+
+## When to Use
+
+Invoke this skill when you:
+- Are building a new Vue 3 component and want to use the Composition API correctly
+- Need to refactor an Options API component to Composition API
+- Want guidance on reactive state, composables, or lifecycle patterns
+- Are implementing custom composables for shared logic
+
 # Vue 3 Composition API Guide
 
 Master modern Vue 3 patterns with the Composition API. Learn reactive programming, composables, and performance optimization for professional, maintainable applications.

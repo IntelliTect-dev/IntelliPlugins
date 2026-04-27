@@ -1,3 +1,20 @@
+---
+name: apply-csharp-patterns
+description: Apply enterprise C# patterns including error handling, dependency injection, and clean code principles
+---
+
+# Apply C# Patterns Skill
+
+Apply idiomatic C# language patterns including type design, null handling, pattern matching, LINQ, and modern C# features for clean, maintainable enterprise code.
+
+## When to Use
+
+Invoke this skill when you:
+- Need to refactor existing code to follow C# best practices
+- Are writing new C# code and want to apply proper patterns
+- Want a review of C# language feature usage in a file or class
+- Are modernizing older C# code to use current language features
+
 # C# Language Patterns & Best Practices
 
 Comprehensive guide to idiomatic C# patterns, type design, and language features for writing maintainable, performant code.

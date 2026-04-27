@@ -1,3 +1,20 @@
+---
+name: add-accessibility
+description: Add WCAG-compliant accessibility and UX improvements to Vuetify components
+---
+
+# Add Accessibility Skill
+
+Audit and improve Vuetify Vue 3 components for WCAG compliance, keyboard navigation, ARIA labeling, color contrast, and overall UX quality.
+
+## When to Use
+
+Invoke this skill when you:
+- Need to audit a component for accessibility issues
+- Are adding ARIA labels, roles, or keyboard navigation support
+- Want to ensure color contrast and visual accessibility standards
+- Need to improve UX consistency and Vuetify component usage
+
 # Accessibility & UX Best Practices
 
 Build inclusive, professional user interfaces that work for everyone. Master WCAG accessibility standards, semantic HTML, keyboard navigation, and accessibility testing.

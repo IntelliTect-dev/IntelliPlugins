@@ -1,3 +1,20 @@
+---
+name: run-code-generation
+description: Run Coalesce code generation to regenerate TypeScript types and API client after C# model changes
+---
+
+# Run Code Generation Skill
+
+Trigger and manage Coalesce's code generation pipeline to regenerate TypeScript types, API clients, and ViewModels after C# model or service changes.
+
+## When to Use
+
+Invoke this skill when you:
+- Have made changes to C# entity classes and need to regenerate TypeScript types
+- Need to run coalesce_generate and understand what it produces
+- Want to troubleshoot code generation errors or stale generated files
+- Are setting up or configuring the code generation pipeline
+
 # Coalesce Code Generation
 
 This guide explains what Coalesce generates, how to run code generation, customize the output, and manage regeneration workflows.
