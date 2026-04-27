@@ -1,0 +1,46 @@
+# DocFX build output
+_site/
+.docfx.json.user
+
+# Generated plugin documentation (source of truth is plugins/)
+docs/plugins/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build artifacts
+bin/
+obj/
+*.dll
+*.exe
+dist/
+build/
+
+# Dependencies
+node_modules/
+packages/
+.nuget/
+
+# Test results
+TestResults/
+*.trx
+coverage/
+
+# Temporary files
+*.tmp
+*.log
+*.cache
+
+# dotnet
+.dotnet/
+.vs/
+
+# Session/state
+.copilot/session-state/
+
+/docs/plugins/

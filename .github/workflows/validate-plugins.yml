@@ -1,0 +1,75 @@
+name: Validate Plugins
+
+on:
+  pull_request:
+    paths:
+      - 'plugins/**'
+      - '.github/plugin/marketplace.json'
+      - '.github/workflows/validate-plugins.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'plugins/**'
+      - '.github/plugin/marketplace.json'
+
+jobs:
+  validate-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate .github/plugin/marketplace.json
+        run: |
+          python -m json.tool .github/plugin/marketplace.json > /dev/null
+          echo "✓ .github/plugin/marketplace.json is valid JSON"
+
+      - name: Validate all plugin.json files
+        run: |
+          for file in $(find plugins -name "plugin.json"); do
+            python -m json.tool "$file" > /dev/null
+            echo "✓ $file is valid JSON"
+          done
+
+      - name: Check required fields
+        run: |
+          python3 << 'EOF'
+          import json
+          import glob
+          
+          required_fields = ["name", "displayName", "description", "version", "publisher"]
+          
+          for plugin_file in glob.glob("plugins/**/plugin.json", recursive=True):
+              with open(plugin_file, 'r') as f:
+                  plugin = json.load(f)
+              
+              for field in required_fields:
+                  if field not in plugin:
+                      print(f"❌ {plugin_file}: Missing required field '{field}'")
+                      exit(1)
+              
+              print(f"✓ {plugin_file}: All required fields present")
+          
+          print("\n✓ All validations passed!")
+          EOF
+
+      - name: Validate plugin names are unique
+        run: |
+          python3 << 'EOF'
+          import json
+          import glob
+          
+          names = {}
+          for plugin_file in glob.glob("plugins/**/plugin.json", recursive=True):
+              with open(plugin_file, 'r') as f:
+                  plugin = json.load(f)
+              
+              name = plugin.get("name")
+              if name in names:
+                  print(f"❌ Duplicate plugin name '{name}' in {plugin_file} and {names[name]}")
+                  exit(1)
+              names[name] = plugin_file
+          
+          print("✓ All plugin names are unique")
+          EOF

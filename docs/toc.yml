@@ -1,0 +1,26 @@
+- name: Home
+  href: index.md
+
+- name: Plugins
+  items:
+  - name: Installation Guide
+    href: plugins/installation-guide.md
+  - name: C# Best Practices
+    href: plugins/csharp-best-practices.md
+  - name: Coalesce Accelerator
+    href: plugins/coalesce-accelerator.md
+  - name: Enterprise Bug Fixing Workflow
+    href: plugins/enterprise-bug-fixing.md
+  - name: SOLID Principles & Architecture
+    href: plugins/solid-principles.md
+  - name: Testing Essentials
+    href: plugins/testing-essentials.md
+  - name: Vuetify Components & Patterns
+    href: plugins/vuetify-components.md
+
+- name: Guides
+  items:
+    - name: Getting Started
+      href: guides/getting-started.md
+    - name: Usage Examples
+      href: guides/usage-examples.md

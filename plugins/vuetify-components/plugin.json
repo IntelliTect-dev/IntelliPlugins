@@ -1,0 +1,38 @@
+{
+  "name": "vuetify-components",
+  "displayName": "Vuetify Components & Patterns",
+  "description": "Vue 3 and Vuetify best practices for building professional UI components with accessibility and UX consistency.",
+  "version": "1.0.0",
+  "publisher": "IntelliTect-dev",
+  "license": "MIT",
+  "homepage": "https://intelliplugins.github.io/plugins/vuetify-components",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IntelliTect-dev/IntelliPlugins.git",
+    "directory": "plugins/vuetify-components"
+  },
+  "keywords": [
+    "Vuetify",
+    "Vue3",
+    "components",
+    "UI",
+    "UX",
+    "accessibility",
+    "WCAG",
+    "responsive-design",
+    "composition-api"
+  ],
+  "categories": [
+    "Framework",
+    "Frontend",
+    "UI/UX",
+    "Accessibility"
+  ],
+  "contents": {
+    "instructions": [
+      "instructions/vuetify-components.md",
+      "instructions/vue3-composition.md",
+      "instructions/accessibility-ux.md"
+    ]
+  }
+}

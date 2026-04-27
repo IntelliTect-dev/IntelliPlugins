@@ -1,0 +1,35 @@
+{
+  "name": "coalesce-accelerator",
+  "displayName": "Coalesce Accelerator",
+  "description": "Streamline full-stack Coalesce framework development with code generation, data binding, and EF Core migration workflows.",
+  "version": "1.0.0",
+  "publisher": "IntelliTect-dev",
+  "license": "MIT",
+  "homepage": "https://intelliplugins.github.io/plugins/coalesce-accelerator",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IntelliTect-dev/IntelliPlugins.git",
+    "directory": "plugins/coalesce-accelerator"
+  },
+  "keywords": [
+    "Coalesce",
+    "code-generation",
+    "EF-Core",
+    "data-binding",
+    "full-stack",
+    "Vue3",
+    "Vuetify",
+    "TypeScript"
+  ],
+  "categories": [
+    "Framework",
+    "FullStack"
+  ],
+  "contents": {
+    "instructions": [
+      "instructions/coalesce-workflows.md",
+      "instructions/ef-core-patterns.md",
+      "instructions/code-generation.md"
+    ]
+  }
+}
