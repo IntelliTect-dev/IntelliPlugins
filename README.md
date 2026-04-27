@@ -120,7 +120,7 @@ Help me fix bug #12345. Let's start with a test-first approach.
 ### Install from Marketplace
 
 ```bash
-copilot plugin marketplace add IntelliPlugins/IntelliTect-dev
+copilot plugin marketplace add IntelliTect-dev/IntelliPlugins
 ```
 
 ### Install All Plugins
