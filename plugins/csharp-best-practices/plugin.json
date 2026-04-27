@@ -3,12 +3,12 @@
   "displayName": "C# Best Practices",
   "description": "C#-specific language patterns, naming conventions, error handling, dependency injection, and async best practices for enterprise development.",
   "version": "1.0.0",
-  "publisher": "IntelliTect-dev",
+  "publisher": "IntelliTect",
   "license": "MIT",
-  "homepage": "https://intellitect-dev.github.io/IntelliPlugins/plugins/csharp-best-practices",
+  "homepage": "https://intellitect.github.io/IntelliPlugins/plugins/csharp-best-practices",
   "repository": {
     "type": "git",
-    "url": "https://github.com/IntelliTect-dev/IntelliPlugins.git",
+    "url": "https://github.com/IntelliTect/IntelliPlugins.git",
     "directory": "plugins/csharp-best-practices"
   },
   "keywords": [

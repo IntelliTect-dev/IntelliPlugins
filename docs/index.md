@@ -47,6 +47,6 @@ Domain-specific workflows:
 
 ## Resources
 
-- **GitHub Repository**: [IntelliTect-dev/IntelliPlugins](https://github.com/IntelliTect-dev/IntelliPlugins)
+- **GitHub Repository**: [IntelliTect/IntelliPlugins](https://github.com/IntelliTect/IntelliPlugins)
 - **Copilot Docs**: [GitHub Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli)
 - **Awesome Copilot**: [Community Extensions](https://github.com/github/awesome-copilot)
