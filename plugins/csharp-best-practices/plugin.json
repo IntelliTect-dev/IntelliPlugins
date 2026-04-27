@@ -22,13 +22,9 @@
     "enterprise",
     "dotnet"
   ],
-  "categories": ["Language", "Enterprise"],
-  "skills": "skills/",
-  "contents": {
-    "instructions": [
-      "instructions/csharp-patterns.md",
-      "instructions/naming-conventions.md",
-      "instructions/async-patterns.md"
-    ]
-  }
+  "categories": [
+    "Language",
+    "Enterprise"
+  ],
+  "skills": "skills/"
 }

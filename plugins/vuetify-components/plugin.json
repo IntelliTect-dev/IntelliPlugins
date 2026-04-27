@@ -22,13 +22,11 @@
     "responsive-design",
     "composition-api"
   ],
-  "categories": ["Framework", "Frontend", "UI/UX", "Accessibility"],
-  "skills": "skills/",
-  "contents": {
-    "instructions": [
-      "instructions/vuetify-components.md",
-      "instructions/vue3-composition.md",
-      "instructions/accessibility-ux.md"
-    ]
-  }
+  "categories": [
+    "Framework",
+    "Frontend",
+    "UI/UX",
+    "Accessibility"
+  ],
+  "skills": "skills/"
 }

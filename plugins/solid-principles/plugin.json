@@ -22,8 +22,10 @@
     "C#",
     "dotnet"
   ],
-  "categories": ["Enterprise", "Architecture", "Code Quality"],
-  "contents": {
-    "instructions": ["instructions/solid-architecture.md"]
-  }
+  "categories": [
+    "Enterprise",
+    "Architecture",
+    "Code Quality"
+  ],
+  "skills": "skills/"
 }

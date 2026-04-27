@@ -21,12 +21,11 @@
     "root-cause-analysis",
     "validation"
   ],
-  "categories": ["Specialized", "Workflow"],
+  "categories": [
+    "Specialized",
+    "Workflow"
+  ],
   "agents": "agents/",
   "skills": "skills/",
-  "mcpServers": ".mcp.json",
-  "contents": {
-    "agents": ["agents/BugFixerAgent.agent.md"],
-    "instructions": ["instructions/bug-fixing-workflow.md"]
-  }
+  "mcpServers": ".mcp.json"
 }

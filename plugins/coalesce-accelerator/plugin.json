@@ -21,13 +21,9 @@
     "Vuetify",
     "TypeScript"
   ],
-  "categories": ["Framework", "FullStack"],
-  "skills": "skills/",
-  "contents": {
-    "instructions": [
-      "instructions/coalesce-workflows.md",
-      "instructions/ef-core-patterns.md",
-      "instructions/code-generation.md"
-    ]
-  }
+  "categories": [
+    "Framework",
+    "FullStack"
+  ],
+  "skills": "skills/"
 }
