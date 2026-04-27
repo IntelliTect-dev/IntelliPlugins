@@ -1,0 +1,11 @@
+{
+  "name": "ai-tuning-sync",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "sync": "node scripts/sync-upstream.js"
+  },
+  "dependencies": {
+    "@octokit/rest": "^20.1.0"
+  }
+}

@@ -7,6 +7,8 @@ on:
     paths:
       - 'docs/**'
       - 'plugins/**'
+      - 'instructions/**'
+      - 'prompts/**'
       - 'scripts/**'
       - '.github/workflows/build-docs.yml'
 
@@ -40,6 +42,9 @@ jobs:
 
       - name: Generate Plugin Documentation
         run: pwsh scripts/generate-plugin-docs.ps1
+
+      - name: Generate AI Tuning Documentation
+        run: pwsh scripts/generate-ai-tuning-docs.ps1
 
       - name: Build Documentation
         working-directory: ./docs
