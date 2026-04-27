@@ -22,8 +22,8 @@ Visit the **[help pages](https://intellitect.github.io/IntelliPlugins/)** for th
 | Section | Description | Docs |
 |---------|-------------|------|
 | **Plugins** | Copilot plugins for enterprise C#, Coalesce, Vuetify, and more | [Plugins](https://intellitect.github.io/IntelliPlugins/plugins/installation-guide.html) |
-| **Instructions** | Instruction files that automatically apply coding standards to matching files | [Instructions](https://intellitect.github.io/IntelliPlugins/instructions/index.html) |
-| **Prompts** | Reusable prompt files for common development workflows | [Prompts](https://intellitect.github.io/IntelliPlugins/prompts/index.html) |
+| **Instructions** | Instruction files that automatically apply coding standards to matching files — one-click install from the docs site | [Instructions](https://intellitect.github.io/IntelliPlugins/instructions/index.html) |
+| **Prompts** | Reusable prompt files for common development workflows — one-click install from the docs site | [Prompts](https://intellitect.github.io/IntelliPlugins/prompts/index.html) |
 
 ## Repository Structure
 

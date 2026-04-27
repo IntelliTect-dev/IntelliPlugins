@@ -27,6 +27,29 @@ $InstructionsRoot = Join-Path $RepoRoot "instructions"
 $PromptsRoot = Join-Path $RepoRoot "prompts"
 $TocPath = Join-Path $DocsRoot "toc.yml"
 
+$RepoSlug = "IntelliTect/IntelliPlugins"
+$RepoBranch = "main"
+$RawBase = "https://raw.githubusercontent.com/$RepoSlug/$RepoBranch"
+
+function Get-VsCodeInstallLinks {
+    param(
+        [string]$RelativePath,  # e.g. "instructions/csharp.instructions.md"
+        [string]$UriScheme      # "chat-instructions", "chat-prompt", etc.
+    )
+
+    $rawUrl = "$RawBase/$RelativePath"
+    $encodedRaw = [Uri]::EscapeDataString($rawUrl)
+    $stableUri  = "vscode:$UriScheme/install?url=$encodedRaw"
+    $insidersUri = "vscode-insiders:$UriScheme/install?url=$encodedRaw"
+
+    return @{
+        StableUri   = $stableUri
+        InsidersUri = $insidersUri
+        StableBadge   = "[![Open in VS Code](https://img.shields.io/badge/VS_Code-Install-0078d4?logo=visualstudiocode)]($stableUri)"
+        InsidersBadge = "[![Open in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-Install-24bfa5?logo=visualstudiocode)]($insidersUri)"
+    }
+}
+
 function Get-FrontmatterAndBody {
     param([string]$Content)
 
@@ -113,6 +136,8 @@ if (Test-Path $InstructionsRoot) {
         $description = if ($fm.description) { $fm.description } else { "" }
         $applyTo = if ($fm.applyTo) { $fm.applyTo } else { "*" }
 
+        $installLinks = Get-VsCodeInstallLinks -RelativePath "instructions/$($file.Name)" -UriScheme "chat-instructions"
+
         $lines = [System.Collections.Generic.List[string]]::new()
         $lines.Add("# $title")
         $lines.Add("")
@@ -121,6 +146,8 @@ if (Test-Path $InstructionsRoot) {
             $lines.Add("")
         }
         $lines.Add("**Applies To**: ``$applyTo``")
+        $lines.Add("")
+        $lines.Add("**Install**: $($installLinks.StableBadge) $($installLinks.InsidersBadge)")
         $lines.Add("")
         $lines.Add("---")
         $lines.Add("")
@@ -137,11 +164,13 @@ if (Test-Path $InstructionsRoot) {
         Write-Host "   Generated: docs/instructions/$slug.md"
 
         $generatedInstructions += [PSCustomObject]@{
-            Slug        = $slug
-            Title       = $title
-            Description = $description
-            ApplyTo     = $applyTo
-            File        = "instructions/$slug.md"
+            Slug          = $slug
+            Title         = $title
+            Description   = $description
+            ApplyTo       = $applyTo
+            File          = "instructions/$slug.md"
+            StableUri     = $installLinks.StableUri
+            InsidersUri   = $installLinks.InsidersUri
         }
     }
 } else {
@@ -150,7 +179,8 @@ if (Test-Path $InstructionsRoot) {
 
 # Generate docs/instructions/index.md
 $instructionRows = ($generatedInstructions | ForEach-Object {
-    "| [$($_.Title)]($($_.Slug).md) | ``$($_.ApplyTo)`` | $($_.Description) |"
+    $installCell = "[VS Code]($($_.StableUri)) / [Insiders]($($_.InsidersUri))"
+    "| [$($_.Title)]($($_.Slug).md) | ``$($_.ApplyTo)`` | $($_.Description) | $installCell |"
 }) -join "`n"
 
 $indexLines = [System.Collections.Generic.List[string]]::new()
@@ -160,8 +190,8 @@ $indexLines.Add("Copilot instruction files that automatically apply context and 
 $indexLines.Add("")
 $indexLines.Add("## Available Instructions")
 $indexLines.Add("")
-$indexLines.Add("| Instruction | Applies To | Description |")
-$indexLines.Add("|-------------|------------|-------------|")
+$indexLines.Add("| Instruction | Applies To | Description | Install |")
+$indexLines.Add("|-------------|------------|-------------|---------|")
 if ($instructionRows) { $indexLines.Add($instructionRows) }
 $indexLines.Add("")
 
@@ -198,6 +228,8 @@ if (Test-Path $PromptsRoot) {
         $mode = if ($fm.mode) { $fm.mode } else { "" }
         $tools = if ($fm.tools -is [array]) { $fm.tools -join ", " } elseif ($fm.tools) { $fm.tools } else { "" }
 
+        $installLinks = Get-VsCodeInstallLinks -RelativePath "prompts/$($file.Name)" -UriScheme "chat-prompt"
+
         $lines = [System.Collections.Generic.List[string]]::new()
         $lines.Add("# $title")
         $lines.Add("")
@@ -208,6 +240,8 @@ if (Test-Path $PromptsRoot) {
         if ($mode) { $lines.Add("**Mode**: $mode") }
         if ($tools) { $lines.Add("**Tools**: $tools") }
         if ($mode -or $tools) { $lines.Add("") }
+        $lines.Add("**Install**: $($installLinks.StableBadge) $($installLinks.InsidersBadge)")
+        $lines.Add("")
         $lines.Add("---")
         $lines.Add("")
         $lines.Add($bodyWithoutH1.TrimEnd())
@@ -228,6 +262,8 @@ if (Test-Path $PromptsRoot) {
             Description = $description
             Mode        = $mode
             File        = "prompts/$slug.md"
+            StableUri   = $installLinks.StableUri
+            InsidersUri = $installLinks.InsidersUri
         }
     }
 } else {
@@ -236,7 +272,8 @@ if (Test-Path $PromptsRoot) {
 
 # Generate docs/prompts/index.md
 $promptRows = ($generatedPrompts | ForEach-Object {
-    "| [$($_.Title)]($($_.Slug).md) | $($_.Mode) | $($_.Description) |"
+    $installCell = "[VS Code]($($_.StableUri)) / [Insiders]($($_.InsidersUri))"
+    "| [$($_.Title)]($($_.Slug).md) | $($_.Mode) | $($_.Description) | $installCell |"
 }) -join "`n"
 
 $promptIndexLines = [System.Collections.Generic.List[string]]::new()
@@ -246,8 +283,8 @@ $promptIndexLines.Add("Reusable Copilot prompt files for common development work
 $promptIndexLines.Add("")
 $promptIndexLines.Add("## Available Prompts")
 $promptIndexLines.Add("")
-$promptIndexLines.Add("| Prompt | Mode | Description |")
-$promptIndexLines.Add("|--------|------|-------------|")
+$promptIndexLines.Add("| Prompt | Mode | Description | Install |")
+$promptIndexLines.Add("|--------|------|-------------|---------|")
 if ($promptRows) { $promptIndexLines.Add($promptRows) }
 $promptIndexLines.Add("")
 
