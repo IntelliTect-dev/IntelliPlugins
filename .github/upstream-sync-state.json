@@ -1,0 +1,6 @@
+{
+  "prompts/csharp-xunit.prompt.md": {
+    "branch": "sync/prompts-csharp-xunit-prompt-md",
+    "upstreamSha": "6fb794bc7917fff6a259ae3ba72cd1fad350c0bf"
+  }
+}

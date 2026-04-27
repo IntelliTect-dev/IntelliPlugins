@@ -211,19 +211,11 @@ $installGuidePath = Join-Path $DocsPluginsDir "installation-guide.md"
 [System.IO.File]::WriteAllText($installGuidePath, $installGuideContent, (New-Object System.Text.UTF8Encoding $false))
 Write-Host "   Generated: docs/plugins/installation-guide.md"
 
-# Rebuild toc.yml plugin section
+# Rebuild toc.yml plugin section (surgical replacement — preserves all other sections)
 Write-Host ""
-Write-Host " Rebuilding toc.yml..."
+Write-Host " Rebuilding toc.yml (Plugins section only)..."
 
 $tocContent = Get-Content $TocPath -Raw
-
-# Extract Home section (everything before "- name: Plugins")
-$homeSection = ""
-if ($tocContent -match '(?s)^(.*?)(?=- name: Plugins)') { $homeSection = $Matches[1] }
-
-# Extract Guides section (from "- name: Guides" to end)
-$guidesSection = ""
-if ($tocContent -match '(?s)(- name: Guides.+)$') { $guidesSection = $Matches[1].TrimEnd() }
 
 $pluginItems = ($generated | Sort-Object DisplayName | ForEach-Object {
     "  - name: $($_.DisplayName)`n    href: $($_.File)"
@@ -231,9 +223,18 @@ $pluginItems = ($generated | Sort-Object DisplayName | ForEach-Object {
 
 $pluginsSection = "- name: Plugins`n  items:`n  - name: Installation Guide`n    href: plugins/installation-guide.md`n$pluginItems"
 
-$newToc = "${homeSection}${pluginsSection}`n`n${guidesSection}`n"
-[System.IO.File]::WriteAllText($TocPath, $newToc, (New-Object System.Text.UTF8Encoding $false))
+# Replace existing Plugins section in-place; insert before the first non-Home top-level
+# section if it doesn't exist yet
+if ($tocContent -match '(?m)^- name: Plugins\r?\n(?:[ \t]+.*\r?\n)*') {
+    $tocContent = $tocContent -replace '(?m)^- name: Plugins\r?\n(?:[ \t]+.*\r?\n)*', "$pluginsSection`n"
+} elseif ($tocContent -match '(?m)^- name: Guides') {
+    $tocContent = $tocContent -replace '(?m)(^- name: Guides)', "$pluginsSection`n`n`$1"
+} else {
+    $tocContent = $tocContent.TrimEnd() + "`n`n$pluginsSection`n"
+}
 
-Write-Host "   Rebuilt toc.yml with $($generated.Count) plugin entries"
+[System.IO.File]::WriteAllText($TocPath, $tocContent, (New-Object System.Text.UTF8Encoding $false))
+
+Write-Host "   Updated Plugins section in toc.yml with $($generated.Count) plugin entries"
 Write-Host ""
-Write-Host " Done! Generated $($generated.Count + 1) files from plugins/ source."
+Write-Host " Done! Generated $($generated.Count + 1) file(s) from plugins/ source."

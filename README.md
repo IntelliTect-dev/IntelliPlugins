@@ -1,6 +1,6 @@
-# IntelliPlugins - Copilot Plugin Marketplace
+# IntelliPlugins
 
-Curated GitHub Copilot plugins for enterprise C# development, Coalesce framework, and Vue 3 with Vuetify.
+A curated collection of GitHub Copilot plugins, instruction files, and prompt templates for enterprise development.
 
 [![IntelliTect](https://img.shields.io/badge/by-IntelliTect-blue)](https://intellitect.com/)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
@@ -10,144 +10,53 @@ Curated GitHub Copilot plugins for enterprise C# development, Coalesce framework
 ### Install a Plugin
 
 ```bash
-copilot plugin install solid-principles@IntelliPlugins
+copilot plugin marketplace add IntelliTect/IntelliPlugins
 ```
 
-### Use in Copilot
+### Browse Everything
 
-```
-@solid-principles Review this service class for SOLID violations.
-```
+Visit the **[help pages](https://intellitect.github.io/IntelliPlugins/)** for the full list of plugins, instructions, and prompts with documentation and usage examples.
 
-### Browse All Plugins
+## What's Included
 
-Visit [help pages](https://intellitect.github.io/IntelliPlugins/) for documentation, examples, and installation guides.
-
-## Available Plugins
-
-### Enterprise-Generic (Reusable Across Projects)
-
-- **[SOLID Principles & Architecture](plugins/solid-principles)** - Enterprise design patterns
-- **[Testing Essentials](plugins/testing-essentials)** - Comprehensive testing strategies
-- **[C# Best Practices](plugins/csharp-best-practices)** - Modern C# language idioms
-
-### Framework-Specific (IntelliTect Tech Stack)
-
-- **[Coalesce Accelerator](plugins/coalesce-accelerator)** - Full-stack Coalesce development
-- **[Vuetify Components & Patterns](plugins/vuetify-components)** - Vue 3 + Vuetify UI
-
-### Specialized Workflows
-
-- **[Enterprise Bug Fixing](plugins/enterprise-bug-fixing)** - Structured bug resolution with Azure DevOps
-
-## Documentation
-
-- **[Getting Started](docs/guides/getting-started.md)** - Your first steps with IntelliPlugins
-- **[Usage Examples](docs/guides/usage-examples.md)** - Real-world scenarios
-- **[Installation Guide](docs/plugins/installation-guide.md)** - Detailed setup
-- **[Full Documentation](https://intellitect.github.io/IntelliPlugins/)** - Complete guides and examples
+| Section | Description | Docs |
+|---------|-------------|------|
+| **Plugins** | Copilot plugins for enterprise C#, Coalesce, Vuetify, and more | [Plugins](https://intellitect.github.io/IntelliPlugins/plugins/installation-guide.html) |
+| **Instructions** | Instruction files that automatically apply coding standards to matching files — one-click install from the docs site | [Instructions](https://intellitect.github.io/IntelliPlugins/instructions/index.html) |
+| **Prompts** | Reusable prompt files for common development workflows — one-click install from the docs site | [Prompts](https://intellitect.github.io/IntelliPlugins/prompts/index.html) |
 
 ## Repository Structure
 
 ```
 IntelliPlugins/
-├── .github/plugin/               # GitHub plugin registry
-│   └── marketplace.json          # Marketplace definition
-├── plugins/                      # All plugin implementations
-│   ├── solid-principles/
-│   ├── testing-essentials/
-│   ├── csharp-best-practices/
-│   ├── coalesce-accelerator/
-│   ├── vuetify-components/
-│   └── enterprise-bug-fixing/
-├── docs/                         # DocFX documentation site
-│   ├── docfx.json
+├── plugins/                      # Copilot plugin implementations
+├── instructions/                 # Copilot instruction files (*.instructions.md)
+├── prompts/                      # Copilot prompt files (*.prompt.md)
+├── scripts/                      # Doc generation and upstream sync scripts
+├── docs/                         # DocFX documentation site source
 │   ├── guides/
-│   └── plugins/                  # auto-generated from plugin implementations on build
-└── .github/workflows/            # CI/CD automation
+│   ├── plugins/                  # auto-generated from plugins/ on build
+│   ├── instructions/             # auto-generated from instructions/ on build
+│   └── prompts/                  # auto-generated from prompts/ on build
+└── .github/
+    ├── plugin/marketplace.json   # GitHub plugin registry
+    └── workflows/                # CI/CD automation
 ```
 
-## Plugin Contents
+## Adding a file from `github/awesome-copilot`
 
-Each plugin includes:
-
-- **plugin.json** - Plugin manifest and metadata
-- **README.md** - Comprehensive documentation
-- **instructions/** - Copilot guidance files
-- **agents/** - Specialized workflow agents (if applicable)
-- **docs/** - Additional resources
-
-## Example Use Cases
-
-### Code Review with SOLID Principles
-
-```
-@solid-principles
-This UserService handles auth, data access, and notifications.
-Does it violate any principles? How should I refactor?
-```
-
-### Writing Unit Tests
-
-```
-@testing-essentials
-I have a DiscountCalculator service.
-What test cases should I write and how should I structure them?
-```
-
-### Full-Stack Coalesce Development
-
-```
-@coalesce-accelerator @vuetify-components
-I need to add an Order feature with a sortable table and edit dialog.
-What's the full workflow from model to UI?
-```
-
-### Bug Fixing with Azure DevOps
-
-```
-@enterprise-bug-fixing @testing-essentials
-Help me fix bug #12345. Let's start with a test-first approach.
-```
-
-## Installation
-
-### Prerequisites
-
-- GitHub Copilot CLI ([installation guide](https://docs.github.com/en/copilot/how-tos/copilot-cli/getting-started-with-github-copilot-cli))
-- Git
-
-### Install from Marketplace
+When the upstream repository introduces a new prompt, instruction, or chat mode you want to adopt:
 
 ```bash
-copilot plugin marketplace add IntelliTect/IntelliPlugins
+npm run sync -- --import path/to/file.ext
 ```
 
-### Install All Plugins
-
-```bash
-copilot plugin install solid-principles@IntelliPlugins && \
-copilot plugin install testing-essentials@IntelliPlugins && \
-copilot plugin install csharp-best-practices@IntelliPlugins && \
-copilot plugin install coalesce-accelerator@IntelliPlugins && \
-copilot plugin install vuetify-components@IntelliPlugins && \
-copilot plugin install enterprise-bug-fixing@IntelliPlugins
-```
-
-### Project-Level Setup
-
-Create `.copilot/config.json` in your project:
-
-```json
-{
-  "plugins": [
-    "solid-principles@IntelliPlugins",
-    "testing-essentials@IntelliPlugins",
-    "csharp-best-practices@IntelliPlugins"
-  ]
-}
-```
+This copies the file locally and records its upstream SHA in `.github/upstream-sync-state.json`. Review the file and state file, then commit when ready.
 
 ## Contributing
 
-Have ideas for new plugins or improvements? Open a PR or reach out to dan.olvera@intellitect.com.
+Have ideas for new content or improvements? Open a PR or reach out to dan.olvera@intellitect.com.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

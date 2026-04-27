@@ -5,6 +5,10 @@ _site/
 # Generated plugin documentation (source of truth is plugins/)
 docs/plugins/
 
+# Generated AI tuning documentation (source of truth is instructions/ and prompts/)
+docs/instructions/
+docs/prompts/
+
 # IDE
 .vscode/
 .idea/

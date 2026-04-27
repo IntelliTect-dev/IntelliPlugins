@@ -18,6 +18,18 @@
   - name: Vuetify Components & Patterns
     href: plugins/vuetify-components.md
 
+- name: Instructions
+  items:
+  - name: Overview
+    href: instructions/index.md
+  - name: C# Development
+    href: instructions/csharp.md
+- name: Prompts
+  items:
+  - name: Overview
+    href: prompts/index.md
+  - name: XUnit Best Practices
+    href: prompts/csharp-xunit.md
 - name: Guides
   items:
     - name: Getting Started
