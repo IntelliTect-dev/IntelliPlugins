@@ -80,7 +80,7 @@ applyTo: '**/*.cs'
 - Guide users through creating unit tests using appropriate testing frameworks.
 - Do not emit "Act", "Arrange" or "Assert" comments.
 - Copy existing style in nearby files for test method names and capitalization.
-- Explain integration testing approaches for API endpoints.
+- Explain integration testing approaches for external services or endpoints.
 - Demonstrate how to mock dependencies for effective testing.
 - Show how to test authentication and authorization logic.
 - Explain test-driven development principles as applied to the current domain.
