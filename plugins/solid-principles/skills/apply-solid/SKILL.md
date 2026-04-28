@@ -1,6 +1,6 @@
 ---
 name: apply-solid
-description: Apply SOLID principles to C# code including SRP, OCP, LSP, ISP, and DIP
+description: Enterprise-grade guidance on SOLID principles, architecture patterns, and code quality for maintainable C# projects.
 ---
 
 # Apply SOLID Principles Skill
@@ -15,13 +15,6 @@ Invoke this skill when you:
 - Are refactoring a class or module to improve separation of concerns
 - Want to apply dependency inversion to decouple components
 - Are designing new classes and want to follow SOLID from the start
-
----
-
-description: "Enterprise-grade guidance on SOLID principles, architecture patterns, and code quality for maintainable C# projects."
-applyTo: "\*_/_.cs"
-
----
 
 # SOLID Principles & Architecture Guidance
 
