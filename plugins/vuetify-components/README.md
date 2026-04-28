@@ -1,4 +1,4 @@
-﻿# Vuetify Components & Patterns Plugin
+# Vuetify Components & Patterns Plugin
 
 Vue 3 and Vuetify best practices for building professional UI components with accessibility and UX consistency at the core.
 

@@ -61,6 +61,6 @@ Full MCP docs: https://coalesce.intellitect.com/topics/mcp-server.html
 
 ## Related Plugins
 
-- **[C# Best Practices](https://intellitect.github.io/IntelliPlugins//plugins/csharp-best-practices)**
-- **[Vuetify Components](https://intellitect.github.io/IntelliPlugins//plugins/vuetify-components)**
-- **[Testing Essentials](https://intellitect.github.io/IntelliPlugins//plugins/testing-essentials)**
+- **[C# Best Practices](https://intellitect.github.io/IntelliPlugins/plugins/csharp-best-practices)**
+- **[Vuetify Components](https://intellitect.github.io/IntelliPlugins/plugins/vuetify-components)**
+- **[Testing Essentials](https://intellitect.github.io/IntelliPlugins/plugins/testing-essentials)**

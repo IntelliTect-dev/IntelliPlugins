@@ -11,7 +11,7 @@ Get started with IntelliPlugins in minutes:
 
 ## Contributing
 
-Have ideas for new content or improvements? Open a PR or reach out to dan.olvera@intellitect.com.
+Have ideas for new content or improvements? Open a PR or [open an issue](https://github.com/IntelliTect/IntelliPlugins/issues).
 
 ## Resources
 
