@@ -2,7 +2,7 @@
   "name": "enterprise-bug-fixing",
   "displayName": "Enterprise Bug Fixing Workflow",
   "description": "Structured bug resolution workflow with test-first approach, Azure DevOps integration, and comprehensive validation.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "IntelliTect",
   "license": "MIT",
   "homepage": "https://intellitect.github.io/IntelliPlugins/plugins/enterprise-bug-fixing",
@@ -21,10 +21,7 @@
     "root-cause-analysis",
     "validation"
   ],
-  "categories": [
-    "Specialized",
-    "Workflow"
-  ],
+  "categories": ["Specialized", "Workflow"],
   "agents": "agents/",
   "skills": "skills/",
   "mcpServers": ".mcp.json"

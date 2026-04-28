@@ -32,7 +32,7 @@ Tools optimized for IntelliTect's tech stack:
 
 Domain-specific workflows:
 
-- **[Enterprise Bug Fixing](plugins/enterprise-bug-fixing.md)** - Structured bug resolution with Azure DevOps
+- **[ADO Bug Fixing](plugins/enterprise-bug-fixing.md)** - Structured bug resolution with Azure DevOps
 
 ## Guides & Resources
 
@@ -53,7 +53,6 @@ Lightweight Copilot files you can install directly into VS Code with one click â
 **Vue 3 Ready** - Modern Vue and Vuetify patterns
 **Test-First** - Emphasis on quality and testing
 **One-Click Install** - Instructions and prompts install directly into VS Code
-**Open Source** - Community-driven, MIT licensed
 
 ## Resources
 

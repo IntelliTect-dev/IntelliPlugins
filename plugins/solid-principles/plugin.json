@@ -2,7 +2,7 @@
   "name": "solid-principles",
   "displayName": "SOLID Principles & Architecture",
   "description": "Enterprise-grade guidance on SOLID principles, architecture patterns, and code quality for maintainable C# projects.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "IntelliTect",
   "license": "MIT",
   "homepage": "https://intellitect.github.io/IntelliPlugins/plugins/solid-principles",
@@ -22,10 +22,6 @@
     "C#",
     "dotnet"
   ],
-  "categories": [
-    "Enterprise",
-    "Architecture",
-    "Code Quality"
-  ],
+  "categories": ["Enterprise", "Architecture", "Code Quality"],
   "skills": "skills/"
 }

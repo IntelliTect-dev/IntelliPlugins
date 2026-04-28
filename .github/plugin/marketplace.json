@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Curated Copilot plugins for enterprise C# development, Coalesce framework, and Vue 3 with Vuetify. Designed to support SOLID principles, best practices, and architectural excellence.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "homepage": "https://intellitect.github.io/IntelliPlugins",
     "repository": "https://github.com/IntelliTect/IntelliPlugins",
     "license": "MIT"
@@ -16,7 +16,7 @@
       "name": "solid-principles",
       "displayName": "SOLID Principles & Architecture",
       "description": "Enterprise-grade guidance on SOLID principles, architecture patterns, and code quality for maintainable C# projects.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "Enterprise",
       "source": "./plugins/solid-principles",
       "keywords": [
@@ -31,7 +31,7 @@
       "name": "testing-essentials",
       "displayName": "Testing Essentials",
       "description": "Comprehensive testing best practices including unit testing strategies, test naming conventions, and mock frameworks.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "Enterprise",
       "source": "./plugins/testing-essentials",
       "keywords": ["testing", "unit-tests", "TDD", "best-practices", "xUnit"]
@@ -40,7 +40,7 @@
       "name": "csharp-best-practices",
       "displayName": "C# Best Practices",
       "description": "C#-specific language patterns, naming conventions, error handling, dependency injection, and async best practices.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "Language",
       "source": "./plugins/csharp-best-practices",
       "keywords": [
@@ -56,7 +56,7 @@
       "name": "coalesce-accelerator",
       "displayName": "Coalesce Accelerator",
       "description": "Streamline full-stack Coalesce framework development with code generation, data binding, and EF Core migration workflows.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "Framework",
       "source": "./plugins/coalesce-accelerator",
       "keywords": [
@@ -71,7 +71,7 @@
       "name": "vuetify-components",
       "displayName": "Vuetify Components & Patterns",
       "description": "Vue 3 and Vuetify best practices for building professional UI components with accessibility and UX consistency.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "Framework",
       "source": "./plugins/vuetify-components",
       "keywords": [
@@ -87,7 +87,7 @@
       "name": "enterprise-bug-fixing",
       "displayName": "Enterprise Bug Fixing Workflow",
       "description": "Structured bug resolution workflow with test-first approach, Azure DevOps integration, and comprehensive validation.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "Specialized",
       "source": "./plugins/enterprise-bug-fixing",
       "keywords": [

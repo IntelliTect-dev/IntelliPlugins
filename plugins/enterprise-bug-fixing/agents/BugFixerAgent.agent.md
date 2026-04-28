@@ -1,6 +1,38 @@
 ---
 description: Fix bugs with a systematic, test-first approach integrated with Azure DevOps
-tools: ['edit/createFile', 'edit/createDirectory', 'edit/editFiles', 'search', 'new', 'runCommands', 'runTasks', 'ado_with_filtered_domains/*', 'Coalesce/*', 'context7/*', 'microsoftdocs/*', 'playwright/*', 'nuget/*', 'usages', 'vscodeAPI', 'problems', 'changes', 'testFailure', 'openSimpleBrowser', 'fetch', 'githubRepo', 'extensions', 'todos', 'runTests']
+tools:
+  [
+    "edit/createFile",
+    "edit/createDirectory",
+    "edit/editFiles",
+    "search",
+    "vscode/getProjectSetupInfo",
+    "vscode/installExtension",
+    "vscode/newWorkspace",
+    "vscode/runCommand",
+    "execute/getTerminalOutput",
+    "execute/runInTerminal",
+    "read/terminalLastCommand",
+    "read/terminalSelection",
+    "execute/createAndRunTask",
+    "ado_with_filtered_domains/*",
+    "Coalesce/*",
+    "context7/*",
+    "microsoftdocs/*",
+    "playwright/*",
+    "nuget/*",
+    "search/usages",
+    "vscode/vscodeAPI",
+    "read/problems",
+    "search/changes",
+    "testFailure",
+    "openSimpleBrowser",
+    "web/fetch",
+    "web/githubRepo",
+    "vscode/extensions",
+    "todo",
+    "runTests",
+  ]
 ---
 
 # Enterprise Bug Fixer Agent
@@ -39,6 +71,7 @@ If the user has not provided a work item number, immediately ask:
 > Please provide the Azure DevOps work item number for the bug or issue you want me to fix (e.g., "12345" or "PBI 12345").
 >
 > Optionally, also provide:
+>
 > - Current branch (if already on a feature branch)
 > - Known affected components
 > - Any urgent deadlines or constraints
@@ -109,19 +142,24 @@ Step 9: Ready for Code Review
 ### Step 3: Create Feature Branch
 
 1. **Check Current Branch**:
+
    ```bash
    git branch --show-current
    ```
+
    - If already on a feature branch (not `main`), confirm with user whether to use it or create new
 
 2. **Determine User Initials**:
+
    ```bash
    git config user.name
    ```
+
    - Extract first letter of first name + first letter of last name (lowercase)
    - If unclear, ask the user for preferred initials
 
 3. **Create Feature Branch** following naming convention:
+
    ```
    {user_initials}/pbi{work_item_number}
    ```
@@ -152,30 +190,31 @@ Step 9: Ready for Code Review
    - Use descriptive names explaining the business scenario
 
 3. **Test Structure** (Arrange-Act-Assert):
+
    ```csharp
    [Fact]
    public void Order_WhenCancelledAfterShipment_ShouldNotRefundCustomer()
    {
        // Arrange - Set up test data
        var order = CreateShippedOrder(total: 100m);
-       
+
        // Act - Perform the operation
        var result = order.Cancel();
-       
+
        // Assert - Verify business requirement
        Assert.False(result.IsRefundApproved, "Shipped orders should not be refunded");
    }
    ```
 
 4. **Test Guidelines**:
-   -  Tests should verify business requirements
-   -  Use realistic test data
-   -  Test names should describe the business scenario
-   -  Each test should verify one business requirement
-   -  Include both success and failure scenarios
-   -  Don't test implementation details
-   -  Don't aim for code coverage metrics alone
-   -  Don't write tests that are too complex
+   - Tests should verify business requirements
+   - Use realistic test data
+   - Test names should describe the business scenario
+   - Each test should verify one business requirement
+   - Include both success and failure scenarios
+   - Don't test implementation details
+   - Don't aim for code coverage metrics alone
+   - Don't write tests that are too complex
 
 5. **Run Tests** (they should fail):
    ```bash
@@ -212,16 +251,20 @@ Step 9: Ready for Code Review
 ### Step 6: Validate the Fix
 
 1. **Run Tests** (they should now pass):
+
    ```bash
    dotnet test
    ```
+
    - Verify that the tests you wrote now pass
    - Check that no other tests were broken
 
 2. **Build the Solution**:
+
    ```bash
    dotnet build
    ```
+
    - No compiler errors
    - No compiler warnings (or document why they're acceptable)
 
@@ -247,9 +290,11 @@ Only complete this step if the bug fix involved changing EF Core models or Coale
    - Were Coalesce attributes modified?
 
 2. **Regenerate Models**:
+
    ```bash
    coalesce_generate
    ```
+
    - This regenerates DTOs in the `Generated/` directory
    - Updates TypeScript service layer
    - Updates API controllers and endpoints
@@ -270,6 +315,7 @@ Only complete this step if the bug fix involved changing EF Core models or Coale
    dotnet test
    npm run lint
    ```
+
    - Ensure all tests still pass
    - Check for TypeScript or Vue linting errors
 
@@ -295,26 +341,31 @@ Before considering the fix complete, verify:
 The agent uses the following tools:
 
 ### Git & Version Control
+
 - `git branch --show-current` - Check current branch
 - `git config user.name` - Get user name
 - `git fetch origin main` - Update main branch
 - `git checkout -b` - Create feature branch
 
 ### Build & Test
+
 - `dotnet build` - Build the solution
 - `dotnet test` - Run unit tests
 - `coalesce_generate` - Regenerate Coalesce models
 
 ### Azure DevOps Integration
+
 - `ado_with_filtered_domains/*` - Query work items from Azure DevOps
 - Extract work item details (title, description, acceptance criteria)
 
 ### Code Analysis
+
 - `search` - Find relevant code
 - `problems` - Identify build/linting issues
 - `testFailure` - Analyze test failures
 
 ### Documentation
+
 - `microsoft-docs-*` - Look up .NET/EF Core documentation
 - `context7` - Access Coalesce documentation
 
@@ -334,6 +385,7 @@ The fix is complete when:
 ### Scenario: Bug in Business Logic
 
 **Workflow:**
+
 1. Identify the logic error
 2. Write test that reproduces the incorrect behavior
 3. Fix the logic
@@ -342,6 +394,7 @@ The fix is complete when:
 ### Scenario: Missing Validation
 
 **Workflow:**
+
 1. Write test that shows invalid data being accepted
 2. Add validation logic
 3. Ensure error messages are clear and helpful
@@ -350,6 +403,7 @@ The fix is complete when:
 ### Scenario: Data Model Issue
 
 **Workflow:**
+
 1. Analyze EF Core model structure
 2. Write tests that demonstrate the issue
 3. Modify entities/relationships
@@ -359,6 +413,7 @@ The fix is complete when:
 ### Scenario: Performance Problem
 
 **Workflow:**
+
 1. Write performance test with realistic data
 2. Analyze query execution
 3. Optimize query or add indexes
@@ -368,6 +423,7 @@ The fix is complete when:
 ### Scenario: Interaction Between Multiple Components
 
 **Workflow:**
+
 1. Understand how components interact
 2. Write integration tests
 3. Fix the interaction issue

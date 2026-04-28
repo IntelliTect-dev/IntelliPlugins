@@ -7,6 +7,37 @@ description: Write xUnit unit tests for a C# class or method following Arrange-A
 
 Generate comprehensive xUnit unit tests for a specified C# class or method, covering the happy path, error conditions, boundary values, and edge cases.
 
+## Project Setup
+
+### Test Project Conventions
+
+- Name test projects `[ProjectName].Tests`
+- Create test classes matching the class under test (e.g., `CalculatorTests` for `Calculator`)
+- Use SDK-style projects
+- xUnit v3 test projects are **executable projects**, not class libraries. Set `<OutputType>Exe</OutputType>` in the `.csproj`
+- Align target frameworks with xUnit v3 minimums: **net472+** or **net8+**
+
+### Package Selection
+
+| Runner integration | Required packages |
+|--------------------|-------------------|
+| **MTP-first** (default for new projects) | `xunit.v3` |
+| **VSTest / Test Explorer** | `xunit.v3` + `xunit.runner.visualstudio` (3.x+) + `Microsoft.NET.Test.Sdk` |
+
+Run tests with:
+- `dotnet test` — for test-runner integration (MTP or VSTest)
+- `dotnet run` — to execute the test executable directly (xUnit v3 native)
+
+### Migrating from xUnit v2
+
+| Old package | Action |
+|-------------|--------|
+| `xunit` | Replace with `xunit.v3` |
+| `xunit.abstractions` | Remove from test projects |
+| `xunit.console` | Remove (not supported in v3) |
+
+If not specified, default new projects to **xUnit v3** with **MTP**.
+
 ## When to Use
 
 Invoke this skill when you:

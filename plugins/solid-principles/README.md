@@ -90,6 +90,7 @@ With this plugin installed, Copilot will:
 **You ask:** "Create a UserRegistration service"
 
 **Copilot responds:**
+
 ```
 I'll create a UserService that follows SOLID principles:
 - IUserRepository for data access (Dependency Inversion)
@@ -106,6 +107,7 @@ Does this approach work for you?
 **You ask:** "Review this code for architectural issues"
 
 **Copilot identifies:**
+
 - God class with multiple responsibilities (SRP violation)
 - Direct static dependencies (DIP violation)
 - Missing validation (error handling)
@@ -113,6 +115,7 @@ Does this approach work for you?
 - Magic strings (naming clarity)
 
 **Copilot recommends:**
+
 - Break into focused services
 - Use dependency injection
 - Add validation helper
@@ -121,14 +124,14 @@ Does this approach work for you?
 
 ## Key Features
 
-###  Do This
+### Do This
 
 ```csharp
 // Single Responsibility - UserService handles only user logic
 public class UserService
 {
     private readonly IUserRepository _repository;
-    
+
     public async Task RegisterAsync(User user)
     {
         // User registration logic only
@@ -139,7 +142,7 @@ public class UserService
 public class OrderService
 {
     private readonly IPaymentProcessor _paymentProcessor;
-    
+
     public OrderService(IPaymentProcessor paymentProcessor)
     {
         _paymentProcessor = paymentProcessor;
@@ -158,7 +161,7 @@ public class UserServiceTests
 }
 ```
 
-###  Avoid This
+### Avoid This
 
 ```csharp
 // God class - violates SRP
@@ -204,6 +207,7 @@ public class UserService
 ```
 
 **Flow:**
+
 1. Controller receives HTTP request
 2. Controller calls Service with request data
 3. Service contains business logic, calls Repository
@@ -214,23 +218,18 @@ public class UserService
 ### Dependency Injection
 
 ```csharp
-// Startup - wire dependencies
-public class Startup
-{
-    public void ConfigureServices(IServiceCollection services)
-    {
-        services.AddScoped<IUserRepository, SqlUserRepository>();
-        services.AddScoped<IUserService, UserService>();
-        services.AddScoped<IPasswordHasher, BcryptHasher>();
-    }
-}
+// Program.cs - wire dependencies
+// or do so in extension methods grouped logically
+builder.Services.AddScoped<IUserRepository, SqlUserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPasswordHasher, BcryptHasher>();
 
 // Usage - dependencies injected automatically
 [ApiController]
 public class UsersController
 {
     private readonly IUserService _userService;
-    
+
     public UsersController(IUserService userService)
     {
         _userService = userService; // Injected by container
@@ -239,14 +238,6 @@ public class UsersController
 ```
 
 ## Code Quality Standards
-
-### Naming Conventions
-
-- **Classes**: PascalCase, descriptive (`UserAuthenticationService`)
-- **Methods**: PascalCase, action-oriented (`AuthenticateUserAsync`)
-- **Variables**: camelCase, intention-revealing (`hashedPassword`)
-- **Constants**: PascalCase, UPPER_SNAKE_CASE (`MaxPasswordAttempts`)
-- **Interfaces**: PascalCase, prefix with `I` (`IUserRepository`)
 
 ### Error Handling
 
@@ -296,12 +287,12 @@ public interface IUserRepository
 public class SqlUserRepository : IUserRepository
 {
     private readonly DbContext _dbContext;
-    
+
     public SqlUserRepository(DbContext dbContext)
     {
         _dbContext = dbContext;
     }
-    
+
     public async Task<User> GetByIdAsync(int id)
     {
         var user = await _dbContext.Users.FindAsync(id);
@@ -335,10 +326,10 @@ public class UserService : IUserService
     public async Task<UserDto> RegisterAsync(string email, string password)
     {
         ValidateInput(email, password);
-        
+
         var hashedPassword = _passwordHasher.Hash(password);
         var user = new User { Email = email, PasswordHash = hashedPassword };
-        
+
         var created = await _repository.CreateAsync(user);
         return MapToDto(created);
     }
@@ -370,18 +361,20 @@ public static class UserValidator
 
 ## Anti-Patterns to Avoid
 
-###  Service Locator
+### Service Locator
+
 ```csharp
 // Don't do this - hard to test, hidden dependencies
 var repository = ServiceLocator.GetService<IUserRepository>();
 ```
 
-###  Use Dependency Injection Instead
+### Use Dependency Injection Instead
+
 ```csharp
 public class UserService
 {
     private readonly IUserRepository _repository;
-    
+
     public UserService(IUserRepository repository)
     {
         _repository = repository;
@@ -389,18 +382,20 @@ public class UserService
 }
 ```
 
-###  Static Dependencies
+### Static Dependencies
+
 ```csharp
 // Don't do this - couples to specific implementation
 user.PasswordHash = PasswordUtility.Hash(password);
 ```
 
-###  Inject Dependencies
+### Inject Dependencies
+
 ```csharp
 public class UserService
 {
     private readonly IPasswordHasher _hasher;
-    
+
     public UserService(IPasswordHasher hasher)
     {
         _hasher = hasher;
@@ -408,7 +403,8 @@ public class UserService
 }
 ```
 
-###  God Classes
+### God Classes
+
 ```csharp
 // Don't do this - too many responsibilities
 public class UserManager
@@ -420,7 +416,8 @@ public class UserManager
 }
 ```
 
-###  Focused Services
+### Focused Services
+
 ```csharp
 public class UserService { /* User operations */ }
 public class EmailService { /* Email operations */ }
@@ -445,19 +442,24 @@ public class ReportService { /* Reporting */ }
 ## Troubleshooting
 
 ### Q: When should I use interfaces?
+
 **A:** Use interfaces for all external dependencies and major abstractions. This enables dependency injection, testing, and flexibility to change implementations.
 
 ### Q: Is the repository pattern always necessary?
+
 **A:** For simple CRUD operations with Entity Framework, repositories can add unnecessary abstraction. However, they're valuable when:
+
 - You need to swap data sources (SQL to NoSQL)
 - You have complex queries to encapsulate
 - You want to mock data access in tests
 - You have multiple repositories with shared patterns
 
 ### Q: How much error handling is enough?
+
 **A:** Handle only errors you can meaningfully recover from. For others, let exceptions bubble up (with logging). Use meaningful exception types and messages.
 
 ### Q: Can I mix SOLID with code-first development?
+
 **A:** Absolutely. SOLID principles are about structure and relationships, not methodology. Start simple, refactor to SOLID as complexity grows.
 
 ## Related Plugins
@@ -470,11 +472,13 @@ public class ReportService { /* Reporting */ }
 ## Resources
 
 ### Books
-- *Clean Code* by Robert C. Martin
-- *Clean Architecture* by Robert C. Martin
-- *Dependency Injection in .NET* by Mark Seemann
+
+- _Clean Code_ by Robert C. Martin
+- _Clean Architecture_ by Robert C. Martin
+- _Dependency Injection in .NET_ by Mark Seemann
 
 ### Online
+
 - [SOLID Principles](https://en.wikipedia.org/wiki/SOLID)
 - [Design Patterns in C#](https://www.dofactory.com/net/design-patterns)
 - [Microsoft Dependency Injection](https://docs.microsoft.com/en-us/dotnet/core/extensions/dependency-injection)
@@ -486,10 +490,6 @@ MIT License. See LICENSE file in the repository.
 ## Support
 
 For issues, questions, or contributions:
+
 - GitHub: [IntelliPlugins](https://github.com/IntelliTect/IntelliPlugins)
 - Issues: [GitHub Issues](https://github.com/IntelliTect/IntelliPlugins/issues)
-
----
-
-**Last Updated:** 2024
-**Plugin Version:** 1.0.0

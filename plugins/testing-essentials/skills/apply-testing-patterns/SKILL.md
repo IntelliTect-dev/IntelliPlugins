@@ -10,6 +10,7 @@ Apply advanced unit testing patterns including test doubles (mocks, stubs, fakes
 ## When to Use
 
 Invoke this skill when you:
+
 - Need to implement complex test scenarios with multiple test doubles
 - Want to apply data-driven or theory-based test patterns
 - Are organizing a test suite and need structural guidance
@@ -45,10 +46,10 @@ public void Example_Pattern_Demonstrated()
     // Arrange - set up the test scenario
     var service = new MyService();
     var input = new MyInput { Value = 100 };
-    
+
     // Act - execute the behavior
     var result = service.ProcessInput(input);
-    
+
     // Assert - verify the expected outcome
     Assert.NotNull(result);
     Assert.Equal(200, result.Value);
@@ -66,32 +67,32 @@ public class OrderServiceTests
     public void PlaceOrder_WithValidCustomerAndItems_SuccessfullyCreatesOrder()
     {
         // Arrange
-        var customer = new Customer 
-        { 
-            Id = 1, 
-            Name = "John Doe", 
-            Email = "john@example.com" 
+        var customer = new Customer
+        {
+            Id = 1,
+            Name = "John Doe",
+            Email = "john@example.com"
         };
-        
+
         var items = new[]
         {
             new OrderItem { ProductId = 1, Quantity = 2, Price = 50m },
             new OrderItem { ProductId = 2, Quantity = 1, Price = 75m }
         };
-        
+
         var mockRepository = new Mock<IOrderRepository>();
         var mockNotificationService = new Mock<INotificationService>();
         var orderService = new OrderService(mockRepository.Object, mockNotificationService.Object);
-        
+
         // Act
         var order = orderService.PlaceOrder(customer, items);
-        
+
         // Assert - verify successful creation
         Assert.NotNull(order);
         Assert.Equal(customer.Id, order.CustomerId);
         Assert.Equal(3, order.TotalItems);
         Assert.Equal(175m, order.Total);
-        
+
         // Verify dependencies were called correctly
         mockRepository.Verify(x => x.Save(order), Times.Once);
         mockNotificationService.Verify(
@@ -104,22 +105,22 @@ public class OrderServiceTests
     {
         // Arrange
         var orderId = 123;
-        var expectedOrder = new Order 
-        { 
-            Id = orderId, 
-            CustomerId = 1, 
+        var expectedOrder = new Order
+        {
+            Id = orderId,
+            CustomerId = 1,
             Total = 250m,
             Status = OrderStatus.Confirmed
         };
-        
+
         var mockRepository = new Mock<IOrderRepository>();
         mockRepository.Setup(x => x.GetById(orderId)).Returns(expectedOrder);
-        
+
         var orderService = new OrderService(mockRepository.Object, new Mock<INotificationService>().Object);
-        
+
         // Act
         var result = orderService.GetOrder(orderId);
-        
+
         // Assert
         Assert.NotNull(result);
         Assert.Equal(orderId, result.Id);
@@ -143,10 +144,10 @@ public class PaymentProcessorTests
         mockBankService
             .Setup(x => x.Charge(It.IsAny<string>(), It.IsAny<decimal>()))
             .Throws<InsufficientFundsException>();
-        
+
         var processor = new PaymentProcessor(mockBankService.Object);
         var payment = new Payment { Amount = 1000m, CardToken = "token123" };
-        
+
         // Act & Assert
         Assert.Throws<InsufficientFundsException>(() => processor.ProcessPayment(payment));
     }
@@ -157,18 +158,18 @@ public class PaymentProcessorTests
         // Arrange
         var mockBankService = new Mock<IBankService>();
         var callCount = 0;
-        
+
         mockBankService
             .Setup(x => x.Charge(It.IsAny<string>(), It.IsAny<decimal>()))
             .Callback(() => callCount++)
             .Throws<TimeoutException>();
-        
+
         var processor = new PaymentProcessor(mockBankService.Object);
         var payment = new Payment { Amount = 100m, CardToken = "token123" };
-        
+
         // Act & Assert
         Assert.Throws<PaymentFailedException>(() => processor.ProcessPayment(payment));
-        
+
         // Verify retry logic (e.g., 3 attempts)
         mockBankService.Verify(x => x.Charge(It.IsAny<string>(), It.IsAny<decimal>()), Times.Exactly(3));
     }
@@ -181,13 +182,13 @@ public class PaymentProcessorTests
         mockBankService
             .Setup(x => x.Charge(It.IsAny<string>(), It.IsAny<decimal>()))
             .Returns(new ChargeResult { Success = false, Reason = "Invalid card" });
-        
+
         var processor = new PaymentProcessor(mockBankService.Object);
         var payment = new Payment { Amount = 100m, CardToken = "invalid" };
-        
+
         // Act
         var result = processor.ProcessPayment(payment);
-        
+
         // Assert
         Assert.False(result.Success);
         Assert.Equal("Invalid card", result.Reason);
@@ -199,16 +200,16 @@ public class PaymentProcessorTests
         // Arrange
         var mockBankService = new Mock<IBankService>();
         var mockLogger = new Mock<ILogger>();
-        
+
         mockBankService
             .Setup(x => x.Charge(It.IsAny<string>(), It.IsAny<decimal>()))
             .Throws<ServiceException>();
-        
+
         var processor = new PaymentProcessor(mockBankService.Object);
         processor.Logger = mockLogger.Object;
-        
+
         var payment = new Payment { Amount = 100m, CardToken = "token123" };
-        
+
         // Act
         try
         {
@@ -218,7 +219,7 @@ public class PaymentProcessorTests
         {
             // Expected
         }
-        
+
         // Assert - verify error was logged for audit trail
         mockLogger.Verify(
             x => x.LogError(It.Is<string>(msg => msg.Contains("Payment failed"))),
@@ -244,15 +245,15 @@ public class DiscountCalculatorTests
     [InlineData(999999.99, 99999.99)]
     [InlineData(decimal.MaxValue - 1, decimal.MaxValue - 1)] // Large value
     public void CalculateDiscount_WithVariousPricePoints_ReturnsCorrectDiscount(
-        decimal price, 
+        decimal price,
         decimal expectedDiscount)
     {
         // Arrange
         var calculator = new DiscountCalculator();
-        
+
         // Act
         var discount = calculator.Calculate(price);
-        
+
         // Assert
         Assert.Equal(expectedDiscount, discount);
     }
@@ -299,10 +300,10 @@ public class UserValidationTests
     {
         // Arrange
         var validator = new EmailValidator();
-        
+
         // Act
         var result = validator.IsValid(email);
-        
+
         // Assert
         Assert.False(result);
     }
@@ -314,7 +315,7 @@ public class UserValidationTests
     {
         // Arrange
         var calculator = new AverageCalculator();
-        
+
         // Act & Assert
         Assert.Throws<ArgumentException>(() => calculator.Calculate(numbers));
     }
@@ -324,7 +325,7 @@ public class UserValidationTests
     {
         // Arrange
         var service = new UserService(null); // Pass null dependency
-        
+
         // Act & Assert
         Assert.Throws<ArgumentNullException>(() => service.FindUser(1));
     }
@@ -335,7 +336,7 @@ public class UserValidationTests
         // Arrange
         var mockRepository = new Mock<IOrderRepository>();
         var service = new OrderService(mockRepository.Object);
-        
+
         // Act & Assert
         Assert.Throws<ArgumentNullException>(() => service.ProcessOrder(null));
     }
@@ -346,7 +347,7 @@ public class UserValidationTests
         // Arrange
         var service = new UserService();
         var user = new User { Email = "user@example.com", Name = null };
-        
+
         // Act & Assert
         Assert.Throws<ValidationException>(() => service.Create(user));
     }
@@ -358,7 +359,7 @@ public class UserValidationTests
     {
         // Arrange
         var finder = new MaximumFinder();
-        
+
         // Act & Assert - verify graceful handling
         if (numbers.Length == 0)
         {
@@ -378,6 +379,7 @@ public class UserValidationTests
 ### When to Mock
 
 Mock when you need to:
+
 - Isolate external dependencies (databases, APIs, file systems)
 - Verify interactions (what was called)
 - Control behavior (set up return values)
@@ -391,10 +393,10 @@ public void SendEmail_OnOrderConfirmed_CallsEmailService()
     var mockEmailService = new Mock<IEmailService>();
     var orderService = new OrderService(mockEmailService.Object);
     var order = new Order { Id = 1, CustomerEmail = "user@example.com" };
-    
+
     // Act
     orderService.ConfirmOrder(order);
-    
+
     // Assert
     mockEmailService.Verify(
         x => x.Send(It.Is<Email>(e => e.To == "user@example.com")),
@@ -489,10 +491,10 @@ public void FindUser_WithFakeRepository_ReturnsUserWhenExists()
     var fakeRepo = new FakeUserRepository();
     fakeRepo.Add(new User { Id = 1, Name = "John" });
     var service = new UserService(fakeRepo);
-    
+
     // Act
     var user = service.GetUser(1);
-    
+
     // Assert
     Assert.NotNull(user);
     Assert.Equal("John", user.Name);
@@ -512,12 +514,12 @@ public void GetUserAge_WithStub_ReturnsPresetValue()
     mockUserRepository
         .Setup(x => x.GetById(1))
         .Returns(new User { Id = 1, Age = 30 }); // Stubbed response
-    
+
     var service = new UserService(mockUserRepository.Object);
-    
+
     // Act
     var age = service.GetUserAge(1);
-    
+
     // Assert
     Assert.Equal(30, age);
 }
@@ -535,10 +537,10 @@ public void PublishEvent_OnOrderCreated_CallsEventPublisher()
     var mockEventPublisher = new Mock<IEventPublisher>();
     var orderService = new OrderService(mockEventPublisher.Object);
     var order = new Order { Id = 1 };
-    
+
     // Act
     orderService.CreateOrder(order);
-    
+
     // Assert - verify the mock was called correctly
     mockEventPublisher.Verify(
         x => x.Publish(It.Is<OrderCreatedEvent>(e => e.OrderId == 1)),
@@ -577,9 +579,9 @@ public class UserServiceTests : ServiceTestBase
     {
         MockRepository.Setup(x => x.GetById(It.IsAny<int>())).Throws<Exception>();
         var service = new UserService(MockRepository.Object, MockLogger.Object);
-        
+
         Assert.Throws<Exception>(() => service.GetUser(1));
-        
+
         VerifyErrorLogged("Failed to retrieve user");
     }
 }
@@ -631,10 +633,10 @@ public void GetActiveUsers_ReturnsOnlyActiveUsers()
 {
     var activeUser = new UserBuilder().Build();
     var inactiveUser = new UserBuilder().WithId(2).Inactive().Build();
-    
+
     var service = new UserService();
     var result = service.GetActiveUsers(new[] { activeUser, inactiveUser });
-    
+
     Assert.Single(result);
     Assert.Equal(activeUser.Id, result.First().Id);
 }
@@ -676,7 +678,7 @@ public class CalculatorDataDrivenTests
     {
         var calculator = new DiscountCalculator();
         var result = calculator.Calculate(price);
-        
+
         Assert.Equal(expectedDiscount, result);
     }
 }
@@ -720,6 +722,65 @@ public class EmailValidationTests
 }
 ```
 
+## Test Organization
+
+### Categorizing Tests with `[Trait]`
+
+Use `[Trait]` to group and filter tests by category, feature, or any custom label:
+
+```csharp
+[Fact]
+[Trait("Category", "Integration")]
+public void GetUser_FromDatabase_ReturnsUser() { }
+
+[Fact]
+[Trait("Category", "UnitTest")]
+[Trait("Feature", "Billing")]
+public void CalculateInvoice_WithTaxExempt_ExcludesTax() { }
+```
+
+Run only a specific category with `dotnet test --filter "Category=UnitTest"`.
+
+### Skipping Tests
+
+Skip a test conditionally with the `Skip` property on `[Fact]` or `[Theory]`:
+
+```csharp
+[Fact(Skip = "Known flaky — tracked in GitHub #42")]
+public void LegacyBehavior_StillWorks() { }
+
+[Theory(Skip = "External API not available in CI")]
+[InlineData("us-east-1")]
+[InlineData("eu-west-1")]
+public void GetLatency_PerRegion_IsAcceptable(string region) { }
+```
+
+### Diagnostic Output with `ITestOutputHelper`
+
+Inject `ITestOutputHelper` to write diagnostic messages visible in test runners:
+
+```csharp
+public class OrderServiceTests
+{
+    private readonly ITestOutputHelper _output;
+
+    public OrderServiceTests(ITestOutputHelper output)
+    {
+        _output = output;
+    }
+
+    [Fact]
+    public void ProcessOrder_WithRetry_LogsAttempts()
+    {
+        _output.WriteLine("Starting retry scenario...");
+        // ... test body ...
+        _output.WriteLine($"Result: {result}");
+    }
+}
+```
+
+Output only appears when a test fails (or when verbosity is set to detailed), keeping passing test runs clean.
+
 ## Summary
 
 Effective test patterns:
@@ -731,5 +792,6 @@ Effective test patterns:
 5. **Mocking**: Isolate external dependencies
 6. **Data-Driven**: Reduce duplication with multiple scenarios
 7. **Parameterized**: Flexible test variations
+8. **Organization**: Use `[Trait]` for filtering, `Skip` for known issues, `ITestOutputHelper` for diagnostics
 
 Use these patterns to build comprehensive, maintainable test suites that catch bugs early and document business requirements clearly.

@@ -30,10 +30,10 @@ public void OrderCancellation_WithinThirtyDays_RefundsFull()
     // Arrange
     var order = CreateOrderFromThirtyDaysAgo();
     var refundService = new RefundService();
-    
+
     // Act
     var refund = refundService.CalculateRefund(order);
-    
+
     // Assert
     Assert.Equal(order.Total, refund.Amount);
 }
@@ -102,10 +102,10 @@ public void SendNotification_OnOrderConfirmed_CallsEmailService()
     var mockEmailService = new Mock<IEmailService>();
     var notificationHandler = new OrderNotificationHandler(mockEmailService.Object);
     var order = new Order { CustomerId = 123 };
-    
+
     // Act
     notificationHandler.OnOrderConfirmed(order);
-    
+
     // Assert - verify the mock was called correctly
     mockEmailService.Verify(
         x => x.Send(It.Is<Email>(e => e.CustomerId == 123)),
@@ -177,7 +177,7 @@ public void CalculateBonus_WithVariousSalaries_ReturnsCorrectAmount(int salary)
 
 ## Testing Frameworks
 
-The enterprise standard is **xUnit**, paired with **Moq** for mocking:
+The enterprise standard is **xUnit.v3**, paired with **Moq** for mocking:
 
 ```csharp
 using Xunit;
@@ -195,7 +195,9 @@ public class OrderServiceTests
 ```
 
 **Other common frameworks:**
-- **NUnit**: Similar to xUnit, still widely used
+
+- **NUnit**: Similar to xUnit.v3, still widely used
+- **TUnit**: Similar to xUnit.v3, very fast
 - **NSubstitute**: Alternative to Moq, elegant syntax
 - **FluentAssertions**: Chainable assertions for readability
 
@@ -263,6 +265,7 @@ copilot plugin install testing-essentials@IntelliPlugins
 ```
 
 Once installed, reference these guides when:
+
 - Setting up a new test project
 - Writing unit tests for business logic
 - Designing test data and fixtures
@@ -297,7 +300,7 @@ public class PaymentProcessorTests
             CardToken = "valid-token-123",
             CustomerId = 456
         };
-        
+
         _mockGateway
             .Setup(x => x.Charge(It.IsAny<string>(), It.IsAny<decimal>()))
             .Returns(new ChargeResult { Success = true, TransactionId = "txn-789" });
@@ -308,11 +311,11 @@ public class PaymentProcessorTests
         // Assert
         Assert.True(result.IsSuccessful);
         Assert.Equal("txn-789", result.TransactionId);
-        
+
         _mockGateway.Verify(
             x => x.Charge("valid-token-123", 99.99m),
             Times.Once);
-        
+
         _mockLogger.Verify(
             x => x.Log(It.Is<string>(m => m.Contains("Payment processed"))),
             Times.Once);
@@ -323,7 +326,7 @@ public class PaymentProcessorTests
     {
         // Arrange
         var payment = new Payment { CardToken = "declined-token" };
-        
+
         _mockGateway
             .Setup(x => x.Charge(It.IsAny<string>(), It.IsAny<decimal>()))
             .Returns(new ChargeResult { Success = false, Error = "Card declined" });
@@ -341,14 +344,14 @@ public class PaymentProcessorTests
     {
         // Arrange
         var payment = new Payment { CardToken = "any-token" };
-        
+
         _mockGateway
             .Setup(x => x.Charge(It.IsAny<string>(), It.IsAny<decimal>()))
             .Throws<ServiceUnavailableException>();
 
         // Act & Assert
         Assert.Throws<ServiceUnavailableException>(() => _processor.ProcessPayment(payment));
-        
+
         _mockLogger.Verify(
             x => x.LogError(It.IsAny<Exception>()),
             Times.Once);
@@ -365,9 +368,6 @@ public class PaymentProcessorTests
 ## Additional Resources
 
 For detailed testing patterns, strategies, and advanced mocking techniques, see:
+
 - `instructions/testing-best-practices.md` — Testing philosophy and core patterns
 - `instructions/unit-testing-patterns.md` — Advanced patterns, data-driven tests, and infrastructure
-
-## License
-
-MIT - See LICENSE file in the repository.
