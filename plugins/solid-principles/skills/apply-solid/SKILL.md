@@ -1,6 +1,6 @@
 ---
 name: apply-solid
-description: Apply SOLID principles to C# code including SRP, OCP, LSP, ISP, and DIP
+description: Enterprise-grade guidance on SOLID principles, architecture patterns, and code quality for maintainable C# projects.
 ---
 
 # Apply SOLID Principles Skill
@@ -10,15 +10,11 @@ Apply SOLID architecture principles to C# codebases to improve maintainability, 
 ## When to Use
 
 Invoke this skill when you:
+
 - Need to review code for SOLID principle violations
 - Are refactoring a class or module to improve separation of concerns
 - Want to apply dependency inversion to decouple components
 - Are designing new classes and want to follow SOLID from the start
-
----
-description: "Enterprise-grade guidance on SOLID principles, architecture patterns, and code quality for maintainable C# projects."
-applyTo: "**/*.cs"
----
 
 # SOLID Principles & Architecture Guidance
 
@@ -36,7 +32,7 @@ SOLID principles form the foundation of enterprise-grade, maintainable software.
 
 A class should have a single, well-defined responsibility. This ensures that the class is focused, easier to understand, and simpler to maintain.
 
-####  Good Example
+#### Good Example
 
 ```csharp
 // UserService handles only user business logic
@@ -58,7 +54,7 @@ public class UserService
 
         var hashedPassword = _passwordHasher.Hash(password);
         var user = new User { Email = email, PasswordHash = hashedPassword };
-        
+
         return await _userRepository.CreateAsync(user);
     }
 }
@@ -87,7 +83,7 @@ public class EmailService
 }
 ```
 
-####  Bad Example
+#### Bad Example
 
 ```csharp
 // God class violates SRP - handles users, emails, AND data persistence
@@ -109,6 +105,7 @@ public class UserManager
 ```
 
 #### Why It Matters
+
 - **Maintainability**: Changes to one responsibility don't affect others
 - **Testability**: Easier to test isolated units
 - **Reusability**: Classes can be used in different contexts
@@ -122,7 +119,7 @@ public class UserManager
 
 Design classes so that new functionality can be added without changing existing code. Use abstraction and polymorphism.
 
-####  Good Example
+#### Good Example
 
 ```csharp
 // Abstraction allows extensions without modification
@@ -186,7 +183,7 @@ var tieredDiscount = new TieredDiscount(...);
 var pricingEngine = new PricingEngine(tieredDiscount);
 ```
 
-####  Bad Example
+#### Bad Example
 
 ```csharp
 // Violates OCP - must modify for every new discount type
@@ -213,6 +210,7 @@ public class PricingEngine
 ```
 
 #### Why It Matters
+
 - **Minimal Risk**: New features don't affect existing code
 - **Scalability**: Easy to add new behaviors
 - **Maintainability**: Existing code stays stable
@@ -226,7 +224,7 @@ public class PricingEngine
 
 If a class derives from a base class or implements an interface, it must fulfill the contract completely and not violate the expectations of the caller.
 
-####  Good Example
+#### Good Example
 
 ```csharp
 public abstract class Bird
@@ -269,7 +267,7 @@ public void FeedBird(Bird bird)
 }
 ```
 
-####  Bad Example
+#### Bad Example
 
 ```csharp
 // Violates LSP - Penguin can't fly but inherits FlyingBird
@@ -281,7 +279,7 @@ public class FlyingBird : Bird
 public class Penguin : FlyingBird
 {
     public override void Eat() => Console.WriteLine("Penguin eats fish");
-    
+
     // Violates the contract - penguin can't fly!
     public override void Fly() => throw new NotImplementedException("Penguins cannot fly");
 }
@@ -294,6 +292,7 @@ public void MakeBirdFly(FlyingBird bird)
 ```
 
 #### Why It Matters
+
 - **Predictability**: Polymorphism works as expected
 - **Robustness**: No runtime surprises with subtype behavior
 - **Contract Integrity**: Interfaces and base classes represent reliable contracts
@@ -307,7 +306,7 @@ public void MakeBirdFly(FlyingBird bird)
 
 Create fine-grained, focused interfaces rather than bloated "fat" interfaces. Clients should only depend on the methods they actually need.
 
-####  Good Example
+#### Good Example
 
 ```csharp
 // Segregated interfaces - clients depend only on what they use
@@ -343,7 +342,7 @@ public class ConsoleStream : IReader, IWriter
 public class DataProcessor
 {
     private readonly IReader _reader;
-    
+
     public DataProcessor(IReader reader)
     {
         _reader = reader;
@@ -357,7 +356,7 @@ public class DataProcessor
 }
 ```
 
-####  Bad Example
+#### Bad Example
 
 ```csharp
 // Fat interface forces unnecessary dependencies
@@ -374,7 +373,7 @@ public class ConsoleStream : IStream
 {
     public string Read() => Console.ReadLine();
     public void Write(string content) => Console.WriteLine(content);
-    
+
     // Must implement methods it doesn't use
     public void Seek(int position) => throw new NotImplementedException();
     public void Encrypt(byte[] key) => throw new NotImplementedException();
@@ -389,6 +388,7 @@ public class DataProcessor
 ```
 
 #### Why It Matters
+
 - **Flexibility**: Classes aren't tied to unnecessary methods
 - **Clarity**: Interfaces document specific contracts
 - **Loose Coupling**: Fewer dependencies between classes
@@ -402,7 +402,7 @@ public class DataProcessor
 
 Depend on abstractions (interfaces), not concrete implementations. This inverts the typical dependency flow and increases flexibility.
 
-####  Good Example
+#### Good Example
 
 ```csharp
 // Abstractions at the top
@@ -477,7 +477,7 @@ var emailService = new SmtpEmailService(smtpClient);
 var userService = new UserService(userRepository, emailService);
 ```
 
-####  Bad Example
+#### Bad Example
 
 ```csharp
 // High-level module depends directly on low-level implementations
@@ -498,6 +498,7 @@ public class UserService
 ```
 
 #### Why It Matters
+
 - **Flexibility**: Easy to swap implementations (databases, email providers, etc.)
 - **Testability**: Mock dependencies during testing
 - **Maintainability**: Changes to implementations don't affect high-level logic
@@ -577,29 +578,6 @@ public class UserRepository : IUserRepository
 
 Use a DI container to manage object lifecycles and dependencies.
 
-```csharp
-// Startup configuration
-public class Startup
-{
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // Register dependencies
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IUserService, UserService>();
-        services.AddScoped<IPasswordHasher, BcryptPasswordHasher>();
-        services.AddScoped<IEmailService, SmtpEmailService>();
-
-        services.AddControllers();
-    }
-
-    public void Configure(IApplicationBuilder app)
-    {
-        app.UseRouting();
-        app.UseEndpoints(endpoints => endpoints.MapControllers());
-    }
-}
-```
-
 ---
 
 ## Code Quality Guidelines
@@ -608,7 +586,7 @@ public class Startup
 
 Extract duplicated code into reusable methods, classes, or services.
 
-####  Good Example
+#### Good Example
 
 ```csharp
 public class ValidationHelper
@@ -641,7 +619,7 @@ public class UserService
 }
 ```
 
-####  Bad Example
+#### Bad Example
 
 ```csharp
 public class UserService
@@ -678,7 +656,7 @@ public class ProfileService
 
 Don't add features or complexity you don't need now. Keep code simple and focused on current requirements.
 
-####  Good Example
+#### Good Example
 
 ```csharp
 public class OrderService
@@ -687,16 +665,16 @@ public class OrderService
     {
         var items = request.Items;
         var total = items.Sum(i => i.Price * i.Quantity);
-        
+
         var order = new Order { Items = items, Total = total };
         await _orderRepository.CreateAsync(order);
-        
+
         return order;
     }
 }
 ```
 
-####  Bad Example
+#### Bad Example
 
 ```csharp
 public class OrderService
@@ -719,7 +697,7 @@ public class OrderService
 
 Use clear, intention-revealing names that describe purpose and behavior.
 
-####  Good Example
+#### Good Example
 
 ```csharp
 public interface IUserPasswordValidator
@@ -746,7 +724,7 @@ public class UserAuthenticationService
 }
 ```
 
-####  Bad Example
+#### Bad Example
 
 ```csharp
 public interface IValidator { bool Validate(string input); }
@@ -774,7 +752,7 @@ public class AuthService
 
 Throw specific exceptions with descriptive messages.
 
-####  Good Example
+#### Good Example
 
 ```csharp
 public class UserService
@@ -785,7 +763,7 @@ public class UserService
             throw new ArgumentException("User ID must be greater than zero.", nameof(userId));
 
         var user = await _userRepository.GetByIdAsync(userId);
-        
+
         if (user == null)
             throw new EntityNotFoundException($"User with ID {userId} not found.");
 
@@ -800,7 +778,7 @@ public class EntityNotFoundException : Exception
 }
 ```
 
-####  Bad Example
+#### Bad Example
 
 ```csharp
 public class UserService
@@ -824,7 +802,7 @@ public class UserService
 
 Never catch an exception and silently ignore it without logging or rethrowing.
 
-####  Good Example
+#### Good Example
 
 ```csharp
 public async Task ProcessOrderAsync(Order order)
@@ -841,7 +819,7 @@ public async Task ProcessOrderAsync(Order order)
 }
 ```
 
-####  Bad Example
+#### Bad Example
 
 ```csharp
 public async Task ProcessOrderAsync(Order order)
@@ -859,85 +837,13 @@ public async Task ProcessOrderAsync(Order order)
 
 ---
 
-## Testing Requirements
-
-### Unit Test Strategy
-
-- **Service Layer Tests**: Test all business logic in services
-- **Mocked Dependencies**: Use interfaces and DI to mock external dependencies
-- **Arrange-Act-Assert**: Structure tests clearly
-- **Edge Cases**: Test happy paths, errors, boundaries, null/empty inputs
-
-####  Good Example
-
-```csharp
-[TestClass]
-public class UserServiceTests
-{
-    private Mock<IUserRepository> _mockRepository;
-    private Mock<IPasswordHasher> _mockHasher;
-    private UserService _userService;
-
-    [TestInitialize]
-    public void Setup()
-    {
-        _mockRepository = new Mock<IUserRepository>();
-        _mockHasher = new Mock<IPasswordHasher>();
-        _userService = new UserService(_mockRepository.Object, _mockHasher.Object);
-    }
-
-    [TestMethod]
-    public async Task RegisterAsync_WithValidInput_CreatesUserSuccessfully()
-    {
-        // Arrange
-        const string email = "test@example.com";
-        const string password = "ValidPassword123";
-        const string hashedPassword = "hashed_value";
-
-        _mockHasher.Setup(h => h.Hash(password)).Returns(hashedPassword);
-        _mockRepository.Setup(r => r.CreateAsync(It.IsAny<User>()))
-            .ReturnsAsync(new User { Id = 1, Email = email });
-
-        // Act
-        var result = await _userService.RegisterAsync(email, password);
-
-        // Assert
-        Assert.IsNotNull(result);
-        Assert.AreEqual(email, result.Email);
-        _mockRepository.Verify(r => r.CreateAsync(It.IsAny<User>()), Times.Once);
-    }
-
-    [TestMethod]
-    [ExpectedException(typeof(ArgumentException))]
-    public async Task RegisterAsync_WithInvalidEmail_ThrowsException()
-    {
-        // Arrange & Act
-        await _userService.RegisterAsync("invalid-email", "ValidPassword123");
-
-        // Assert: Exception expected
-    }
-
-    [TestMethod]
-    [ExpectedException(typeof(ArgumentException))]
-    public async Task RegisterAsync_WithShortPassword_ThrowsException()
-    {
-        // Arrange & Act
-        await _userService.RegisterAsync("test@example.com", "short");
-
-        // Assert: Exception expected
-    }
-}
-```
-
----
-
 ## Anti-Patterns to Avoid
 
 ### Service Locator Pattern
 
 Avoid using a service locator; use dependency injection instead.
 
-####  Bad
+#### Bad
 
 ```csharp
 public class UserService
@@ -950,7 +856,7 @@ public class UserService
 }
 ```
 
-####  Good
+#### Good
 
 ```csharp
 public class UserService
@@ -973,7 +879,7 @@ public class UserService
 
 Avoid static utility classes for business logic; use dependency injection.
 
-####  Bad
+#### Bad
 
 ```csharp
 public class UserService
@@ -987,7 +893,7 @@ public class UserService
 }
 ```
 
-####  Good
+#### Good
 
 ```csharp
 public class UserService
@@ -1007,7 +913,7 @@ public class UserService
 
 Avoid hardcoded values; use named constants or configuration.
 
-####  Bad
+#### Bad
 
 ```csharp
 public class OrderService
@@ -1027,7 +933,7 @@ public class OrderService
 }
 ```
 
-####  Good
+#### Good
 
 ```csharp
 public class OrderService
@@ -1054,7 +960,7 @@ public class OrderService
 
 Avoid large classes with too many responsibilities.
 
-####  Bad
+#### Bad
 
 ```csharp
 public class UserManager
@@ -1070,7 +976,7 @@ public class UserManager
 }
 ```
 
-####  Good
+#### Good
 
 ```csharp
 public class UserService { /* User operations */ }
@@ -1101,6 +1007,7 @@ Always explain the benefits: testability, maintainability, flexibility, and redu
 Before implementing, explain your intended architecture:
 
 "I'm planning to:
+
 - Create a `{Name}Service` class for business logic
 - Implement an `I{Name}Repository` interface for data access
 - Use constructor injection for all dependencies
@@ -1114,6 +1021,7 @@ Does this approach work for you, or would you prefer a different architecture?"
 ## Summary
 
 **SOLID principles are non-negotiable for enterprise code.** They ensure:
+
 - Code is maintainable and easier to understand
 - Changes are localized and don't break unrelated parts
 - Testing is straightforward with proper abstractions

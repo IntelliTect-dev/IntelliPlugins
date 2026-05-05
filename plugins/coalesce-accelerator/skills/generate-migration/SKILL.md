@@ -25,7 +25,7 @@ Invoke this skill after you have:
 
 2. **Regenerate Coalesce artifacts** to keep the API and TypeScript types in sync:
    ```bash
-   coalesce_generate
+   dotnet coalesce
    ```
 
 3. **Add the EF Core migration** using a descriptive PascalCase name that describes the change:

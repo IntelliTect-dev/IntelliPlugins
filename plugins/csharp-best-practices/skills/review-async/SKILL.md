@@ -10,6 +10,7 @@ Audit async/await usage in the current file or selected code for correctness, sa
 ## When to Use
 
 Invoke this skill when you:
+
 - Want to check a file for async anti-patterns before code review
 - Suspect a deadlock or performance issue caused by improper async usage
 - Are migrating synchronous code to async and want a validation pass
@@ -18,6 +19,7 @@ Invoke this skill when you:
 ## What This Skill Checks
 
 ### 1. Blocking on async (deadlock risk)
+
 ```csharp
 // ❌ Dangerous — can deadlock in non-console contexts
 var result = GetDataAsync().Result;
@@ -29,6 +31,7 @@ var result = await GetDataAsync();
 ```
 
 ### 2. async void (fire-and-forget danger)
+
 ```csharp
 // ❌ Exceptions are unobservable
 public async void LoadData() { ... }
@@ -38,6 +41,7 @@ public async Task LoadDataAsync() { ... }
 ```
 
 ### 3. Missing ConfigureAwait(false) in library code
+
 ```csharp
 // ❌ In a library — may cause deadlocks in UI/ASP.NET contexts
 await _client.GetAsync(url);
@@ -47,6 +51,7 @@ await _client.GetAsync(url).ConfigureAwait(false);
 ```
 
 ### 4. Unnecessary async wrapper
+
 ```csharp
 // ❌ Unnecessary state machine overhead
 public async Task<int> GetCountAsync() => await _repo.CountAsync();
@@ -56,6 +61,7 @@ public Task<int> GetCountAsync() => _repo.CountAsync();
 ```
 
 ### 5. Missing CancellationToken propagation
+
 ```csharp
 // ❌ Ignores cancellation
 public async Task ProcessAsync() { await _db.SaveChangesAsync(); }
@@ -66,6 +72,7 @@ public async Task ProcessAsync(CancellationToken ct = default)
 ```
 
 ### 6. Unobserved task (fire-and-forget without handling)
+
 ```csharp
 // ❌ Exception is swallowed
 _ = DoWorkAsync();
@@ -78,11 +85,11 @@ _ = DoWorkAsync().ContinueWith(t => _logger.LogError(t.Exception, "Background ta
 ## Review Output
 
 For each issue found, report:
+
 - **Location**: file name and line number
 - **Issue type**: one of the categories above
 - **Severity**: Warning or Error
 - **Suggested fix**: corrected code snippet
-
 
 ## Reference: Async Patterns
 
@@ -91,6 +98,7 @@ For each issue found, report:
 Comprehensive guide to asynchronous programming in C# using async/await, Tasks, and cancellation patterns.
 
 ## Table of Contents
+
 1. [Async Fundamentals](#async-fundamentals)
 2. [ConfigureAwait](#configureawait)
 3. [Cancellation Tokens](#cancellation-tokens)
@@ -188,7 +196,7 @@ public class DataService
     {
         return _repository.GetUser(userId);
     }
-    
+
     public async Task<User?> GetUserAsync(int userId)  // Asynchronous (non-blocking)
     {
         return await _repository.GetUserAsync(userId);
@@ -213,7 +221,7 @@ public class ModernDataService
 
 ### Library Code vs Application Code
 
-Use **ConfigureAwait(false)** in library code to avoid UI context capture.
+Use **ConfigureAwait(false)** when applicable in general-purpose library code to avoid UI context capture.
 
 ```csharp
 //  Good: Library code with ConfigureAwait(false)
@@ -223,10 +231,10 @@ public class UserRepository : IUserRepository
     {
         using var response = await _httpClient.GetAsync($"/users/{userId}")
             .ConfigureAwait(false);
-        
+
         var json = await response.Content.ReadAsStringAsync()
             .ConfigureAwait(false);
-        
+
         return JsonSerializer.Deserialize<User>(json);
     }
 }
@@ -275,17 +283,17 @@ public async Task<List<User>> GetActiveUsersAsync()
 {
     var users = await _repository.GetAllUsersAsync()
         .ConfigureAwait(false);
-    
+
     var activeUsers = users
         .Where(u => u.IsActive)
         .ToList();
-    
+
     foreach (var user in activeUsers)
     {
         user.LastAccessed = await GetLastAccessTimeAsync(user.Id)
             .ConfigureAwait(false);
     }
-    
+
     return activeUsers;
 }
 
@@ -294,12 +302,12 @@ public async Task<List<User>> GetActiveUsersAsync()
 {
     var users = await _repository.GetAllUsersAsync().ConfigureAwait(false);
     var activeUsers = users.Where(u => u.IsActive).ToList();
-    
+
     foreach (var user in activeUsers)
     {
         user.LastAccessed = await GetLastAccessTimeAsync(user.Id);  // Missing ConfigureAwait
     }
-    
+
     return activeUsers;
 }
 ```
@@ -318,10 +326,10 @@ public async Task<User> GetUserAsync(int userId, CancellationToken cancellationT
 {
     var response = await _httpClient.GetAsync($"/users/{userId}", cancellationToken)
         .ConfigureAwait(false);
-    
+
     var json = await response.Content.ReadAsStringAsync(cancellationToken)
         .ConfigureAwait(false);
-    
+
     return JsonSerializer.Deserialize<User>(json)!;
 }
 
@@ -329,17 +337,17 @@ public async Task<User> GetUserAsync(int userId, CancellationToken cancellationT
 public async Task<List<User>> GetAllUsersAsync(CancellationToken cancellationToken = default)
 {
     var users = new List<User>();
-    
+
     for (int i = 0; i < totalPages; i++)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        
+
         var pageUsers = await GetPageAsync(i, cancellationToken)
             .ConfigureAwait(false);
-        
+
         users.AddRange(pageUsers);
     }
-    
+
     return users;
 }
 
@@ -370,12 +378,12 @@ public async Task ProcessItemsAsync(List<Item> items, CancellationToken cancella
 public async Task<string> FetchWithTimeoutAsync(string url, int timeoutMs)
 {
     using var cts = new CancellationTokenSource(timeoutMs);
-    
+
     try
     {
         var response = await _httpClient.GetAsync(url, cts.Token)
             .ConfigureAwait(false);
-        
+
         return await response.Content.ReadAsStringAsync(cts.Token)
             .ConfigureAwait(false);
     }
@@ -413,7 +421,7 @@ public async Task<Result> ExecuteWithCombinedCancellationAsync(
 {
     using var cts = CancellationTokenSource.CreateLinkedTokenSource(externalToken);
     cts.CancelAfter(TimeSpan.FromSeconds(60));
-    
+
     return await DoWorkAsync(cts.Token);
 }
 
@@ -441,10 +449,10 @@ public async Task<User> GetUserAsync(int userId)
     {
         var user = await _repository.GetUserAsync(userId)
             .ConfigureAwait(false);
-        
+
         if (user == null)
             throw new UserNotFoundException(userId);
-        
+
         return user;
     }
     catch (HttpRequestException ex)
@@ -496,7 +504,7 @@ When using Task.WhenAll, exceptions are wrapped in AggregateException.
 public async Task<List<User>> GetUsersAsync(List<int> userIds)
 {
     var tasks = userIds.Select(id => _repository.GetUserAsync(id)).ToList();
-    
+
     try
     {
         await Task.WhenAll(tasks).ConfigureAwait(false);
@@ -513,7 +521,7 @@ public async Task<List<User>> GetUsersAsync(List<int> userIds)
 public async Task<List<User>> GetUsersAsync(List<int> userIds)
 {
     var tasks = userIds.Select(id => _repository.GetUserAsync(id)).ToList();
-    
+
     try
     {
         await Task.WhenAll(tasks).ConfigureAwait(false);
@@ -526,7 +534,7 @@ public async Task<List<User>> GetUsersAsync(List<int> userIds)
         }
         throw;
     }
-    
+
     return tasks.Select(t => t.Result).ToList();
 }
 
@@ -535,7 +543,7 @@ public async Task<List<User>> GetUsersWithFallbackAsync(List<int> userIds)
 {
     var results = new List<User>();
     var tasks = userIds.Select(id => _repository.GetUserAsync(id)).ToList();
-    
+
     await foreach (var task in Task.WhenEach(tasks))
     {
         try
@@ -548,7 +556,7 @@ public async Task<List<User>> GetUsersWithFallbackAsync(List<int> userIds)
             _logger.LogWarning(ex, "Failed to fetch single user");
         }
     }
-    
+
     return results;
 }
 ```
@@ -656,7 +664,7 @@ public async Task CreateOrderAsync(Order order)
 public async Task CreateOrderAsync(Order order)
 {
     await _repository.SaveAsync(order);
-    
+
     // Fire-and-forget with error handling
     _ = _notificationService.NotifyAsync(order.CustomerId)
         .ContinueWith(t =>
@@ -680,7 +688,7 @@ public async Task ProcessUsersAsync(List<User> users)
         var profile = await _service.GetProfileAsync(u.Id);
         users.Add(profile);  // Race condition!
     });
-    
+
     await Task.WhenAll(tasks);
 }
 
@@ -696,13 +704,13 @@ public async Task<List<UserProfile>> GetProfilesAsync(List<User> users)
 public async Task ProcessUsersAsync(List<User> users)
 {
     var profiles = new ConcurrentBag<UserProfile>();
-    
+
     var tasks = users.Select(async u =>
     {
         var profile = await _service.GetProfileAsync(u.Id);
         profiles.Add(profile);  // Thread-safe
     });
-    
+
     await Task.WhenAll(tasks).ConfigureAwait(false);
 }
 ```
@@ -722,10 +730,10 @@ public async Task<OrderSummary> GetOrderDetailsAsync(int orderId)
     var orderTask = _orderService.GetOrderAsync(orderId);
     var itemsTask = _orderService.GetItemsAsync(orderId);
     var shippingTask = _shippingService.GetShippingInfoAsync(orderId);
-    
+
     await Task.WhenAll(orderTask, itemsTask, shippingTask)
         .ConfigureAwait(false);
-    
+
     return new OrderSummary
     {
         Order = orderTask.Result,
@@ -747,7 +755,7 @@ public async Task<List<User>> GetManyUsersAsync(List<int> userIds)
 {
     // Limit parallel operations to avoid resource exhaustion
     var semaphore = new SemaphoreSlim(10);  // Max 10 concurrent
-    
+
     var tasks = userIds.Select(async id =>
     {
         await semaphore.WaitAsync();
@@ -760,7 +768,7 @@ public async Task<List<User>> GetManyUsersAsync(List<int> userIds)
             semaphore.Release();
         }
     });
-    
+
     return (await Task.WhenAll(tasks)).ToList();
 }
 ```
@@ -779,7 +787,7 @@ public async Task<string> GetDataFromFastestProviderAsync()
         _provider2.FetchAsync(),
         _provider3.FetchAsync()
     };
-    
+
     var completed = await Task.WhenAny(tasks).ConfigureAwait(false);
     return completed.Result;
 }
@@ -789,13 +797,13 @@ public async Task<string?> FetchWithTimeoutAsync(string url, int timeoutMs)
 {
     var fetchTask = _httpClient.GetStringAsync(url);
     var timeoutTask = Task.Delay(timeoutMs);
-    
+
     var completed = await Task.WhenAny(fetchTask, timeoutTask)
         .ConfigureAwait(false);
-    
+
     if (completed == timeoutTask)
         return null;  // Timeout occurred
-    
+
     return await fetchTask;
 }
 
@@ -808,18 +816,18 @@ public async Task<User?> FindUserInSourcesAsync(string email)
         _database.FindAsync(email),
         _api.FindAsync(email)
     };
-    
+
     while (sources.Length > 0)
     {
         var completed = await Task.WhenAny(sources).ConfigureAwait(false);
         var user = await (Task<User?>)completed;
-        
+
         if (user != null)
             return user;
-        
+
         sources = sources.Where(t => t != completed).ToArray();
     }
-    
+
     return null;
 }
 ```
@@ -836,10 +844,10 @@ public async Task<Order> CreateOrderAsync(CreateOrderRequest request)
 {
     var customer = await ValidateCustomerAsync(request.CustomerId);
     var items = await ValidateItemsAsync(request.Items);
-    var order = await _repository.CreateAsync(new Order 
-    { 
-        Customer = customer, 
-        Items = items 
+    var order = await _repository.CreateAsync(new Order
+    {
+        Customer = customer,
+        Items = items
     });
     await _notificationService.NotifyAsync(customer.Email);
     return order;
@@ -884,7 +892,7 @@ public async Task<Result> AnalyzeDataAsync(List<DataSet> datasets)
 {
     var analyzedTasks = datasets.Select(d => AnalyzeAsync(d)).ToArray();
     var results = await Task.WhenAll(analyzedTasks).ConfigureAwait(false);
-    
+
     var combined = CombineResults(results);
     return await FinalizeAsync(combined);
 }
@@ -929,7 +937,7 @@ public async Task ValidateAsync(User user)
 {
     if (user.IsValid)
         return;  // Returns Task.CompletedTask
-    
+
     await _emailService.SendInvalidNoticeAsync(user);
 }
 
@@ -938,7 +946,7 @@ public async ValueTask<User?> GetUserAsync(int userId)
 {
     if (_cache.TryGetValue(userId, out var user))
         return user;  // Returns ValueTask - no allocation
-    
+
     return await _repository.GetUserAsync(userId);
 }
 
@@ -947,7 +955,7 @@ public ValueTask<int> ParseAsync(string value)
 {
     if (int.TryParse(value, out var result))
         return new ValueTask<int>(result);  // No async overhead
-    
+
     return new ValueTask<int>(ParseFromServiceAsync(value));
 }
 ```
@@ -959,10 +967,10 @@ public ValueTask<int> ParseAsync(string value)
 public async Task<User> GetUserAsync(int userId)
 {
     using var timer = _telemetry.StartTimer("GetUser");
-    
+
     var user = await _repository.GetUserAsync(userId)
         .ConfigureAwait(false);
-    
+
     timer.Stop();
     return user;
 }
@@ -971,7 +979,7 @@ public async Task<User> GetUserAsync(int userId)
 public async Task<User> GetUserWithTimeoutAsync(int userId)
 {
     using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
-    
+
     try
     {
         return await _repository.GetUserAsync(userId, cts.Token)
@@ -993,7 +1001,7 @@ Async/await best practices:
 
 1. **Always use async/await** for I/O-bound operations
 2. **Add Async suffix** to Task-returning methods
-3. **Use ConfigureAwait(false)** in library code
+3. **Use ConfigureAwait(false)** in general-purpose library code when applicable
 4. **Accept and propagate** CancellationTokens
 5. **Never block on async** code (no .Result or .Wait())
 6. **Avoid async void** except for event handlers

@@ -40,9 +40,9 @@ public class ActiveEntitySource : StandardDataSource<Entity, AppDbContext>
 2. **Decorate with `[Coalesce]`** so the CLI picks it up during code generation
 3. **Override `GetQuery`** — compose from `base.GetQuery()` to retain default filtering/sorting support
 4. **Optionally override `TransformResults`** for post-query shaping
-5. **Run `coalesce_generate`** to expose it in the API:
+5. **Run `dotnet coalesce`** to expose it in the API:
    ```bash
-   coalesce_generate
+   dotnet coalesce
    ```
 6. **Verify the new data source appears** in the generated API and TypeScript service
 7. **Write tests** that confirm filtering/scoping works correctly

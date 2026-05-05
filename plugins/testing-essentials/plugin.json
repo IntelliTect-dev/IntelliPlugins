@@ -2,7 +2,7 @@
   "name": "testing-essentials",
   "displayName": "Testing Essentials",
   "description": "Comprehensive testing best practices including unit testing strategies, test naming conventions, and mock frameworks.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "IntelliTect",
   "license": "MIT",
   "homepage": "https://intellitect.github.io/IntelliPlugins/plugins/testing-essentials",
@@ -19,9 +19,6 @@
     "xUnit",
     "mocking"
   ],
-  "categories": [
-    "Enterprise",
-    "Testing"
-  ],
+  "categories": ["Enterprise", "Testing"],
   "skills": "skills/"
 }

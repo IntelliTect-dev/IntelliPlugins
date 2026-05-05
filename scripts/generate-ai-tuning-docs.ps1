@@ -39,12 +39,12 @@ function Get-VsCodeInstallLinks {
 
     $rawUrl = "$RawBase/$RelativePath"
     $encodedRaw = [Uri]::EscapeDataString($rawUrl)
-    $stableUri  = "vscode:$UriScheme/install?url=$encodedRaw"
+    $stableUri = "vscode:$UriScheme/install?url=$encodedRaw"
     $insidersUri = "vscode-insiders:$UriScheme/install?url=$encodedRaw"
 
     return @{
-        StableUri   = $stableUri
-        InsidersUri = $insidersUri
+        StableUri     = $stableUri
+        InsidersUri   = $insidersUri
         StableBadge   = "[![Open in VS Code](https://img.shields.io/badge/VS_Code-Install-0078d4?logo=visualstudiocode)]($stableUri)"
         InsidersBadge = "[![Open in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-Install-24bfa5?logo=visualstudiocode)]($insidersUri)"
     }
@@ -64,7 +64,8 @@ function Get-FrontmatterAndBody {
             # Array value must be checked before scalar: tools: ['a', 'b']
             if ($line -match "^(\w+):\s*\[(.+)\]\s*$") {
                 $frontmatter[$Matches[1]] = ($Matches[2] -split ',\s*' | ForEach-Object { $_.Trim(" '`"") })
-            } elseif ($line -match "^(\w+):\s*'?(.+?)'?\s*$") {
+            }
+            elseif ($line -match "^(\w+):\s*'?(.+?)'?\s*$") {
                 $frontmatter[$Matches[1]] = $Matches[2]
             }
         }
@@ -96,6 +97,16 @@ function Update-TocSection {
     # Replace an existing section or insert before Guides
     $escapedName = [regex]::Escape($SectionName)
     $sectionPattern = "(?m)^- name: $escapedName\r?\n(?:[ \t]+.*\r?\n)*"
+
+    # If no new section content is provided, remove the section if it exists
+    if ([string]::IsNullOrWhiteSpace($NewSectionYaml)) {
+        if ($TocContent -match $sectionPattern) {
+            $updated = $TocContent -replace $sectionPattern, ""
+            # Keep spacing tidy after removal
+            return ($updated -replace '(\r?\n){3,}', "`n`n").TrimEnd() + "`n"
+        }
+        return $TocContent
+    }
 
     if ($TocContent -match $sectionPattern) {
         return $TocContent -replace $sectionPattern, "$NewSectionYaml`n"
@@ -164,24 +175,25 @@ if (Test-Path $InstructionsRoot) {
         Write-Host "   Generated: docs/instructions/$slug.md"
 
         $generatedInstructions += [PSCustomObject]@{
-            Slug          = $slug
-            Title         = $title
-            Description   = $description
-            ApplyTo       = $applyTo
-            File          = "instructions/$slug.md"
-            StableUri     = $installLinks.StableUri
-            InsidersUri   = $installLinks.InsidersUri
+            Slug        = $slug
+            Title       = $title
+            Description = $description
+            ApplyTo     = $applyTo
+            File        = "instructions/$slug.md"
+            StableUri   = $installLinks.StableUri
+            InsidersUri = $installLinks.InsidersUri
         }
     }
-} else {
+}
+else {
     Write-Warning "instructions/ directory not found at $InstructionsRoot"
 }
 
 # Generate docs/instructions/index.md
 $instructionRows = ($generatedInstructions | ForEach-Object {
-    $installCell = "[VS Code]($($_.StableUri)) / [Insiders]($($_.InsidersUri))"
-    "| [$($_.Title)]($($_.Slug).md) | ``$($_.ApplyTo)`` | $($_.Description) | $installCell |"
-}) -join "`n"
+        $installCell = "[VS Code]($($_.StableUri)) / [Insiders]($($_.InsidersUri))"
+        "| [$($_.Title)]($($_.Slug).md) | ``$($_.ApplyTo)`` | $($_.Description) | $installCell |"
+    }) -join "`n"
 
 $indexLines = [System.Collections.Generic.List[string]]::new()
 $indexLines.Add("# Instructions")
@@ -266,15 +278,16 @@ if (Test-Path $PromptsRoot) {
             InsidersUri = $installLinks.InsidersUri
         }
     }
-} else {
+}
+else {
     Write-Warning "prompts/ directory not found at $PromptsRoot"
 }
 
 # Generate docs/prompts/index.md
 $promptRows = ($generatedPrompts | ForEach-Object {
-    $installCell = "[VS Code]($($_.StableUri)) / [Insiders]($($_.InsidersUri))"
-    "| [$($_.Title)]($($_.Slug).md) | $($_.Mode) | $($_.Description) | $installCell |"
-}) -join "`n"
+        $installCell = "[VS Code]($($_.StableUri)) / [Insiders]($($_.InsidersUri))"
+        "| [$($_.Title)]($($_.Slug).md) | $($_.Mode) | $($_.Description) | $installCell |"
+    }) -join "`n"
 
 $promptIndexLines = [System.Collections.Generic.List[string]]::new()
 $promptIndexLines.Add("# Prompts")
@@ -302,17 +315,23 @@ $tocContent = Get-Content $TocPath -Raw
 
 # Build Instructions toc section
 $instructionItems = ($generatedInstructions | ForEach-Object {
-    "  - name: $($_.Title)`n    href: $($_.File)"
-}) -join "`n"
-$instructionsSection = "- name: Instructions`n  items:`n  - name: Overview`n    href: instructions/index.md"
-if ($instructionItems) { $instructionsSection += "`n$instructionItems" }
+        "  - name: $($_.Title)`n    href: $($_.File)"
+    }) -join "`n"
+$instructionsSection = ""
+if ($generatedInstructions.Count -gt 0) {
+    $instructionsSection = "- name: Instructions`n  items:`n  - name: Overview`n    href: instructions/index.md"
+    if ($instructionItems) { $instructionsSection += "`n$instructionItems" }
+}
 
 # Build Prompts toc section
 $promptItems = ($generatedPrompts | ForEach-Object {
-    "  - name: $($_.Title)`n    href: $($_.File)"
-}) -join "`n"
-$promptsSection = "- name: Prompts`n  items:`n  - name: Overview`n    href: prompts/index.md"
-if ($promptItems) { $promptsSection += "`n$promptItems" }
+        "  - name: $($_.Title)`n    href: $($_.File)"
+    }) -join "`n"
+$promptsSection = ""
+if ($generatedPrompts.Count -gt 0) {
+    $promptsSection = "- name: Prompts`n  items:`n  - name: Overview`n    href: prompts/index.md"
+    if ($promptItems) { $promptsSection += "`n$promptItems" }
+}
 
 $tocContent = Update-TocSection -TocContent $tocContent -SectionName "Instructions" -NewSectionYaml $instructionsSection
 $tocContent = Update-TocSection -TocContent $tocContent -SectionName "Prompts" -NewSectionYaml $promptsSection
