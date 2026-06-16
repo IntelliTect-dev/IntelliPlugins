@@ -1,10 +1,14 @@
 {
+  "instructions/csharp.instructions.md": {
+    "branch": "sync/instructions-csharp-instructions-md",
+    "upstreamSha": "206e2766109198bf687c5e5107e9c6994f1e1dc0"
+  },
   "instructions\\csharp.instructions.md": {
     "branch": "sync/instructions-csharp-instructions-md",
     "upstreamSha": "206e2766109198bf687c5e5107e9c6994f1e1dc0"
   },
   "prompts/csharp-xunit.prompt.md": {
     "branch": "sync/prompts-csharp-xunit-prompt-md",
-    "upstreamSha": "6fb794bc7917fff6a259ae3ba72cd1fad350c0bf"
+    "upstreamSha": "f96a900e1302940d4c31449a424a89422adb2e2f"
   }
 }
