@@ -1,4 +1,8 @@
 {
+  "instructions/csharp.instructions.md": {
+    "branch": "sync/instructions-csharp-instructions-md",
+    "upstreamSha": "206e2766109198bf687c5e5107e9c6994f1e1dc0"
+  },
   "instructions\\csharp.instructions.md": {
     "branch": "sync/instructions-csharp-instructions-md",
     "upstreamSha": "206e2766109198bf687c5e5107e9c6994f1e1dc0"
